@@ -1,0 +1,1 @@
+const [STAGE_WIDTH, STAGE_HEIGHT] = [12,20]
