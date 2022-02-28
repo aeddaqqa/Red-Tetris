@@ -1,6 +1,6 @@
 import "./App.css";
 import Tetris from "./components/Tetris";
-import { createStage } from "./gameHelpers";
+import { createStage } from "./utils/gameHelpers";
 
 function App() {
   // console.log(createStage());
