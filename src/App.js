@@ -4,6 +4,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { Theme } from "./utils/theme";
 import Info from "./components/Info/Info";
 import Chat from "./components/Chat/Chat.js";
+import OtherStages from "./components/OtherStages/OtherStages";
 
 const StyledApp = styled.div`
   width: 100vw;
@@ -52,7 +53,9 @@ function App() {
       <StyledApp className="App">
         <StyledNav />
         <StyledContainer>
-          <StyledOtherStages></StyledOtherStages>
+          <StyledOtherStages>
+            <OtherStages />
+          </StyledOtherStages>
           <StyledStage>
             <Tetris />
           </StyledStage>
