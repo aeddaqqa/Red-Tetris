@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { STAGE_HEIGHT, STAGE_WIDTH } from "../utils/gameHelpers";
+import { STAGE_HEIGHT, STAGE_WIDTH } from "../../utils/gameHelpers";
 
 export const StyledStage = styled.div`
   background: black;

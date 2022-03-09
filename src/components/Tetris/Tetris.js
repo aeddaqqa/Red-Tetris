@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Stage from "./Stage";
-import { usePlayer } from "../hooks/usePlayer";
-import { useStage } from "../hooks/useStage";
-import { createStage, checkCollision } from "../utils/gameHelpers";
+import { usePlayer } from "../../hooks/usePlayer";
+import { useStage } from "../../hooks/useStage";
+import { createStage, checkCollision } from "../../utils/gameHelpers";
 
 const Styled = styled.button`
   width: 100%;

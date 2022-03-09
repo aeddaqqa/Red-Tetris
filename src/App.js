@@ -1,7 +1,9 @@
 import "./App.css";
-import Tetris from "./components/Tetris";
+import Tetris from "./components/Tetris/Tetris";
 import styled, { ThemeProvider } from "styled-components";
 import { Theme } from "./utils/theme";
+import Info from "./components/Info/Info";
+import Chat from "./components/Chat/Chat.js";
 
 const StyledApp = styled.div`
   width: 100vw;
@@ -28,8 +30,8 @@ const StyledContainer = styled.div`
 `;
 
 const StyledOtherStages = styled.div`
-  /* background-color: ${(props) => props.theme.background.secondary}; */
   grid-area: otherstage;
+  background-color: blue;
 `;
 const StyledStage = styled.div`
   grid-area: stage;
@@ -37,11 +39,11 @@ const StyledStage = styled.div`
 `;
 const StyledInfo = styled.div`
   grid-area: info;
-  /* background-color: ${(props) => props.theme.background.secondary}; */
+  /* padding: 1rem; */
 `;
 const StyledMsgs = styled.div`
+  background-color: blue;
   grid-area: msgs;
-  /* background-color: ${(props) => props.theme.background.secondary}; */
 `;
 
 function App() {
@@ -54,8 +56,12 @@ function App() {
           <StyledStage>
             <Tetris />
           </StyledStage>
-          <StyledInfo></StyledInfo>
-          <StyledMsgs></StyledMsgs>
+          <StyledInfo>
+            <Info />
+          </StyledInfo>
+          <StyledMsgs>
+            <Chat />
+          </StyledMsgs>
         </StyledContainer>
       </StyledApp>
     </ThemeProvider>
