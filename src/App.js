@@ -28,26 +28,20 @@ const StyledContainer = styled.div`
 `;
 
 const StyledOtherStages = styled.div`
-  background-color: ${(props) => props.theme.background.secondary};
+  /* background-color: ${(props) => props.theme.background.secondary}; */
   grid-area: otherstage;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  padding: 20px;
-  gap: 20px;
 `;
 const StyledStage = styled.div`
-  background-color: ${(props) => props.theme.background.secondary};
   grid-area: stage;
-  border: 1px solid red;
+  border: 1px solid ${(props) => props.theme.border.stage};
 `;
 const StyledInfo = styled.div`
   grid-area: info;
-  background-color: ${(props) => props.theme.background.secondary};
+  /* background-color: ${(props) => props.theme.background.secondary}; */
 `;
 const StyledMsgs = styled.div`
   grid-area: msgs;
-  background-color: ${(props) => props.theme.background.secondary};
+  /* background-color: ${(props) => props.theme.background.secondary}; */
 `;
 
 function App() {
@@ -56,10 +50,7 @@ function App() {
       <StyledApp className="App">
         <StyledNav />
         <StyledContainer>
-          <StyledOtherStages row={2} col={2}>
-            <Tetris />
-            <Tetris />
-          </StyledOtherStages>
+          <StyledOtherStages></StyledOtherStages>
           <StyledStage>
             <Tetris />
           </StyledStage>

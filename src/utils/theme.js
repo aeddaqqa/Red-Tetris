@@ -16,6 +16,10 @@ export const Theme = {
   background: {
     primary: "#19282f",
     secondary: "#d3eca7",
+    stage: "black",
+    fillCol: "#46b3e6",
   },
-  border: {},
+  border: {
+    stage: "white",
+  },
 };

@@ -4,7 +4,7 @@ const Row = ({ row, rowIdx, stage }) => {
   return (
     <RowStyle>
       {row.map((col, colIdx) => {
-        return <Col key={colIdx} back={col[0] ? "#aefeff" : "#072227"} />;
+        return <Col key={colIdx} fill={col[0] ? 1 : 0} />;
       })}
     </RowStyle>
   );
