@@ -1,12 +1,13 @@
 export const Theme = {
   message: {
     font: "'Saira', sans-serif",
-    fontSize: "1rem",
+    fontSize: "0.9rem",
     fontWeight: "bold",
-    color: "#212121",
+    color: "white",
     lineHeight: "1.5",
     letterSpacing: "2px",
     padding: "1rem",
+    background: "#424242",
   },
   headers: {
     h1: {
@@ -24,12 +25,12 @@ export const Theme = {
     },
     h3: {
       font: "'Saira', sans-serif",
-      fontSize: "1rem",
-      fontWeight: "bold",
+      fontSize: "0.8rem",
+      fontWeight: "regular",
       color: "white",
       lineHeight: "1.5",
-      letterSpacing: "2px",
-      padding: "1rem",
+      letterSpacing: "1px",
+      padding: "0.8rem",
     },
   },
   buttons: {},

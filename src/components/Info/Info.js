@@ -10,56 +10,85 @@ const StyledInfo = styled.div`
 
 const NextTetromino = styled.div`
   flex: 3;
-  background-color: blue;
-  .header {
+  display: flex;
+  flex-direction: column;
+  h1 {
     width: 100%;
-    /* height: 20%; */
-    background-color: ${(props) => props.theme.background.primary};
-    padding: 1rem;
     text-align: center;
-    color: white;
-    font-size: 1.5rem;
+    font-size: ${(props) => props.theme.headers.h1.fontSize};
+    padding: ${(props) => props.theme.headers.h1.padding};
+    font-family: ${(props) => props.theme.headers.h1.font};
+    font-weight: ${(props) => props.theme.headers.h1.fontWeight};
+    letter-spacing: ${(props) => props.theme.headers.h1.letterSpacing};
+    color: ${(props) => props.theme.headers.h1.color};
+  }
+  .content {
+    flex: 1;
+    /* background-color: white; */
+    border: 1px solid ${(props) => props.theme.border.avatar};
+    position: relative;
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      background-color: black;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      .item {
+        border: 1px solid white;
+      }
+      /* background-color: ${(props) => props.theme.background.secondary}; */
+    }
   }
 `;
 
 const GameDetails = styled.div`
-  background-color: red;
   flex: 2;
   display: flex;
   flex-direction: column;
   h1 {
     width: 100%;
-    font-size: 1.5rem;
-    background-color: ${(props) => props.theme.background.primary};
-    font-weight: bold;
-    color: white;
     text-align: center;
-    padding: 1rem;
-    letterspacing: 2px;
+    font-size: ${(props) => props.theme.headers.h1.fontSize};
+    padding: ${(props) => props.theme.headers.h1.padding};
+    font-family: ${(props) => props.theme.headers.h1.font};
+    font-weight: ${(props) => props.theme.headers.h1.fontWeight};
+    letter-spacing: ${(props) => props.theme.headers.h1.letterSpacing};
+    color: ${(props) => props.theme.headers.h1.color};
   }
   .content {
     flex: 1;
+    background-color: black;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border: 1px solid white;
+    /* border-radius: 10px; */
   }
   p {
     /* flex: 0 0 100%; */
-    font-size: 1.2rem;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    letterspacing: 2px;
+    font-size: ${(props) => props.theme.message.fontSize};
+    font-family: ${(props) => props.theme.message.font};
+    font-weight: ${(props) => props.theme.message.fontWeight};
+    letter-spacing: ${(props) => props.theme.message.letterSpacing};
+    color: ${(props) => props.theme.message.color};
+    padding: ${(props) => props.theme.message.padding};
+    margin: 1rem;
   }
 `;
 
 const Info = () => {
+  const array = new Array(30).fill(0);
   return (
     <StyledInfo>
       <GameDetails>
-        <h1>Game Details</h1>
+        <h1>Details</h1>
         <div className="content">
           <p>score : 50</p>
           <p>level : 10</p>
@@ -67,8 +96,15 @@ const Info = () => {
         </div>
       </GameDetails>
       <NextTetromino>
-        <div className="header">Next Tetromino</div>
-        <div className="content"></div>
+        <h1>Next</h1>
+        <div className="content">
+          <div className="tetromino"></div>
+          <div className="background">
+            {array.map((_, index) => (
+              <div className="item" key={index}></div>
+            ))}
+          </div>
+        </div>
       </NextTetromino>
     </StyledInfo>
   );

@@ -3,18 +3,29 @@ import styled from "styled-components";
 const StyledMsgs = styled.div`
   width: 100%;
   height: 100%;
-  padding: 1rem;
+  /* padding: 1rem rem 0 1rem; */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  .input {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    display: flex;
+  }
 `;
 
 const StyledMessage = styled.div`
   width: 100%;
-  height: auto;
+  /* flex: 1; */
+  /* padding: 1rem; */
+  /* height: ; */
   display: flex;
   flex-direction: ${(props) => {
     if (props.type === 0) return "row-reverse";
     return "row";
   }};
-  padding: 1rem 0;
+  padding: 1rem;
   gap: 1rem;
 
   .content {
@@ -28,8 +39,8 @@ const StyledMessage = styled.div`
         if (props.type !== 0) return "start";
         return "end";
       }};
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 0.9rem;
+      font-weight: lighter;
       color: white;
       line-height: 1.5;
       letter-spacing: 2px;
@@ -43,14 +54,14 @@ const StyledMessage = styled.div`
       /* margin-top: 20px; */
       font-size: ${(props) => props.theme.message.fontSize};
       font-family: ${(props) => props.theme.message.font};
-      font-weight: ${(props) => props.theme.message.fontWeight};
+      /* font-weight: ${(props) => props.theme.message.fontWeight}; */
       letter-spacing: ${(props) => props.theme.message.letterSpacing};
       color: ${(props) => props.theme.message.color};
       background: ${(props) => props.theme.message.background};
     }
   }
   .avatar {
-    gap: 0.5rem;
+    gap: 0.6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,11 +70,11 @@ const StyledMessage = styled.div`
       justify-content: center;
       align-items: center;
       display: flex;
-      border: 4px solid ${(props) => props.theme.border.avatar};
+      border: 2px solid ${(props) => props.theme.border.avatar};
       background-color: ${(props) => props.theme.background.primary};
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
     }
   }
 `;

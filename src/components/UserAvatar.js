@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledAvatar = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: ${(props) => props.theme.background.primary};
   border: 2px solid ${(props) => props.theme.border.avatar};
