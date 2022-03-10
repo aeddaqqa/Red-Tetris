@@ -32,7 +32,6 @@ const StyledContainer = styled.div`
 
 const StyledOtherStages = styled.div`
   grid-area: otherstage;
-  background-color: blue;
 `;
 const StyledStage = styled.div`
   grid-area: stage;
@@ -43,7 +42,6 @@ const StyledInfo = styled.div`
   /* padding: 1rem; */
 `;
 const StyledMsgs = styled.div`
-  background-color: blue;
   grid-area: msgs;
 `;
 

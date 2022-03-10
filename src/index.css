@@ -19,3 +19,15 @@ code {
   padding: 0;
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: "DEBUG";
+  src: url("../assets/fonts/debug-font/misc/DEBUG FREE TRIAL-5b92.woff")
+    format("woff");
+}
+
+@font-face {
+  font-family: "saira";
+  src: url("../assets/fonts/Saira/Saira-VariableFont_wdth,wght.ttf")
+    format("ttf");
+}
