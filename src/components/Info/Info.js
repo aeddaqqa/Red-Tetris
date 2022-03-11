@@ -25,7 +25,8 @@ const NextTetromino = styled.div`
   .content {
     flex: 1;
     /* background-color: white; */
-    border: 1px solid ${(props) => props.theme.border.avatar};
+    /* border: 1px solid ${(props) => props.theme.border.avatar};
+     */
     position: relative;
     .background {
       position: absolute;
@@ -37,11 +38,10 @@ const NextTetromino = styled.div`
       background-color: black;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(5, 1fr);
+      grid-template-rows: repeat(6, 1fr);
       .item {
-        border: 1px solid white;
+        border: 1px solid #b33030;
       }
-      /* background-color: ${(props) => props.theme.background.secondary}; */
     }
   }
 `;
@@ -68,7 +68,9 @@ const GameDetails = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border: 1px solid white;
+    border-top: 1px solid #b33030;
+    border-left: 1px solid #b33030;
+    border-bottom: 1px solid #b33030;
     /* border-radius: 10px; */
   }
   p {
@@ -84,7 +86,7 @@ const GameDetails = styled.div`
 `;
 
 const Info = () => {
-  const array = new Array(30).fill(0);
+  const array = new Array(36).fill(0);
   return (
     <StyledInfo>
       <GameDetails>

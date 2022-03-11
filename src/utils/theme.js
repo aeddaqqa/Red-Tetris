@@ -22,6 +22,12 @@ export const Theme = {
     },
     h2: {
       font: "'Saira', sans-serif",
+      fontSize: "2rem",
+      fontWeight: "regular",
+      color: "white",
+      lineHeight: "1.5",
+      letterSpacing: "1px",
+      padding: "0.8rem",
     },
     h3: {
       font: "'Saira', sans-serif",
@@ -41,7 +47,7 @@ export const Theme = {
     fillCol: "#46b3e6",
   },
   border: {
-    stage: "white",
+    stage: "#212121",
     avatar: "#b33030",
   },
 };
