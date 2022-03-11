@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
-  /* padding: 5rem; */
   display: flex;
 `;
 
@@ -30,7 +29,6 @@ const RightSide = styled.div`
   .title {
     width: 50%;
     text-align: center;
-    /* font-size: ${(props) => props.theme.headers.h1.fontSize}; */
     font-size: 6em;
     padding: ${(props) => props.theme.headers.h1.padding};
     font-family: ${(props) => props.theme.headers.h1.font};
@@ -54,14 +52,11 @@ const RightSide = styled.div`
       border: none;
       cursor: pointer;
       width: 50%;
-      /* margin: 2rem; */
       padding: 1rem;
       border-radius: 10px;
       background-color: white;
-      /* margin-top: 20px; */
       font-size: ${(props) => props.theme.message.fontSize};
       font-family: ${(props) => props.theme.message.font};
-      /* font-weight: ${(props) => props.theme.message.fontWeight}; */
       letter-spacing: ${(props) => props.theme.message.letterSpacing};
       color: ${(props) => props.theme.message.color};
       background: ${(props) => props.theme.message.background};
@@ -74,7 +69,6 @@ const RightSide = styled.div`
     }
     .input {
       width: 50%;
-      /* padding: 1rem 0; */
       label {
         font-size: 1rem;
         color: white;
