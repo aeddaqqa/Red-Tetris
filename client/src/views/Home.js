@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { StyledContainer, LeftSide, RightSide } from "./Home.Style";
 
 const Home = () => {
+  let navigate = useNavigate();
   const [userName, setUserName] = useState("");
   return (
     <StyledContainer>
@@ -16,7 +17,7 @@ const Home = () => {
           className="form"
           onSubmit={(event) => {
             event.preventDefault();
-            console.log(userName);
+            navigate("/rooms", { state: { userName } });
           }}
         >
           <TextField
