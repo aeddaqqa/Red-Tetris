@@ -3,7 +3,7 @@ import styled from "styled-components";
 const StyledInfo = styled.div`
   width: 100%;
   height: 100%;
-  padding: 1.2rem;
+  padding: 0.5rem;
   background-color: ${(props) => props.theme.background.secondary};
   display: flex;
 `;
@@ -65,23 +65,20 @@ const GameDetails = styled.div`
     background-color: black;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     border-top: 1px solid #b33030;
     border-left: 1px solid #b33030;
     border-bottom: 1px solid #b33030;
-    /* border-radius: 10px; */
   }
   p {
-    /* flex: 0 0 100%; */
-    font-size: ${(props) => props.theme.message.fontSize};
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
     font-family: ${(props) => props.theme.message.font};
     font-weight: ${(props) => props.theme.message.fontWeight};
     letter-spacing: ${(props) => props.theme.message.letterSpacing};
     color: ${(props) => props.theme.message.color};
-    padding: ${(props) => props.theme.message.padding};
-    margin: 1rem;
+    padding: 0.5rem;
   }
 `;
 

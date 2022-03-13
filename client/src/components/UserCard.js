@@ -6,9 +6,10 @@ const StyledUserCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.2rem;
   h3 {
     font-size: ${(props) => props.theme.headers.h3.fontSize};
+    font-size: 0.8rem;
     font-family: ${(props) => props.theme.headers.h3.font};
     font-weight: ${(props) => props.theme.headers.h3.fontWeight};
     letter-spacing: ${(props) => props.theme.headers.h3.letterSpacing};
