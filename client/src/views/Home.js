@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StyledContainer, LeftSide, RightSide } from "./Home.Style";
 
-const Home = () => {
+const Home = ({ socket }) => {
   let navigate = useNavigate();
   const [userName, setUserName] = useState("");
   return (
@@ -16,6 +16,7 @@ const Home = () => {
         <form
           className="form"
           onSubmit={(event) => {
+            // socket.emit("joinRoom", userName);
             event.preventDefault();
             navigate("/rooms", { state: { userName } });
           }}
