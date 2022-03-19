@@ -12,7 +12,7 @@ export const Theme = {
   headers: {
     h1: {
       font: "'DEBUG', sans-serif;",
-      fontSize: "4rem",
+      fontSize: "calc(30px + 4vmin)",
       fontWeight: "bold",
       color: "#b33030",
       span: "#d3eca7",
@@ -22,7 +22,7 @@ export const Theme = {
     },
     h2: {
       font: "'Saira', sans-serif",
-      fontSize: "2rem",
+      fontSize: "calc(30px + 4vmin)",
       fontWeight: "regular",
       color: "white",
       lineHeight: "1.5",
@@ -31,7 +31,7 @@ export const Theme = {
     },
     h3: {
       font: "'Saira', sans-serif",
-      fontSize: "0.8rem",
+      fontSize: "calc(30px + 4vmin)",
       fontWeight: "regular",
       color: "white",
       lineHeight: "1.5",
