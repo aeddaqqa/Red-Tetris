@@ -3,8 +3,8 @@ export const StyledContainer = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
 `;
 
 export const StyledAvatar = styled.div`
@@ -19,19 +19,20 @@ export const StyledAvatar = styled.div`
         background-size: cover;
         background-position: center;
     }
+    margin-bottom: 50px;
 `;
 
 export const RightSide = styled.div`
-    display: inline-block;
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    /* align-items: center; */
+    /* justify-content: center; */
     .title {
+        margin-bottom: 50px;
         text-align: center;
-        font-size: calc(30px + 4vmin);
+        font-size: 10rem;
         font-family: ${(props) => props.theme.headers.h1.font};
         color: ${(props) => props.theme.headers.h1.color};
         span {
@@ -49,7 +50,7 @@ export const RightSide = styled.div`
             height: 3rem;
             border: none;
             cursor: pointer;
-            width: 50%;
+            width: 300px;
             padding: 1rem;
             border-radius: 10px;
             background-color: white;
@@ -66,7 +67,7 @@ export const RightSide = styled.div`
             }
         }
         .input {
-            width: 50%;
+            width: 300px;
             label {
                 font-size: 1rem;
                 color: white;

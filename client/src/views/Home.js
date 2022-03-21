@@ -38,8 +38,9 @@ const Home = ({ socket }) => {
                     }}
                 >
                     <StyledAvatar>
-                        {avatar ? parse(avatar) : ""}
-                        <div
+                        {avatar ? parse(avatar) : <svg></svg>}
+                        {/* <div
+
                             onClick={() => {
                                 getAvatar()
                                     .then((avatar) => {
@@ -50,9 +51,8 @@ const Home = ({ socket }) => {
                                     });
                             }}
                         >
-                            {" "}
                             generate new avatar
-                        </div>
+                        </div> */}
                     </StyledAvatar>
                     <TextField
                         className="input"
