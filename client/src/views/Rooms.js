@@ -1,20 +1,24 @@
 import TextField from "@mui/material/TextField";
 import { Select } from "antd";
 import { useEffect, useState } from "react";
-import { StyledContainer, JoinRoom, StyledRoomCard } from "./Rooms.Style";
-import { useLocation } from "react-router";
-// import { BoxesLoader } from "react-awesome-loaders";
+import { StyledContainer, JoinRoom , StyledRoomCard} from "./Rooms.Style";
+import { useSelector, useDispatch } from 'react-redux';
+import { updateRooms } from '../reducers/roomsSlice';
+import { addRoomName } from '../reducers/playerSlice';
+import { getRoomsRequest } from '../actions/roomsActions';
+import { ToastContainer, toast } from 'react-toastify';
+import StartButton from '../components/StartButton/StartButton';
 import { AiOutlineUser } from "react-icons/ai";
-// import io from "socket.io-client";
+// import { BoxesLoader } from "react-awesome-loaders";
+
 import { Badge } from "antd";
 
-const RoomCard = () => {
+const RoomCard = ({room}) => {
     return (
-        <Badge.Ribbon text="Battle" color="red">
+        <Badge.Ribbon text={room.mode} color="red">
             <StyledRoomCard>
                 <div className="name">
-                    pikala room <AiOutlineUser style={{ margin: "0 10px" }} /> 1
-                    / 4
+                {room.name} <AiOutlineUser  /> {room.playersIn}/{room.maxPlayers}
                 </div>
                 {/* <div className="players">
                     <AiOutlineUser style={{ marginRight: "30px" }} /> 1 / 4
@@ -26,96 +30,114 @@ const RoomCard = () => {
                 desktopSize={"128px"}
                 mobileSize={"80px"}
             /> */}
-                <div className="status">In Game...</div>
+                <div className="status">status</div>
             </StyledRoomCard>
         </Badge.Ribbon>
     );
 };
+
 const { Option } = Select;
 
+
+
 const Rooms = ({ socket }) => {
-    const [mode, setMode] = useState("solo");
-    const [rooms, setRooms] = useState([]);
-    const [roomName, setRoomName] = useState("");
-    const { state } = useLocation();
-    function handleChange(value) {
-        console.log(`selected ${value}`);
+  const [mode, setMode] = useState("solo");
+  const [room, setRoom] = useState("");
+  // const rooms = useSelector((state) => state.roomsReducer.rooms);
+  const user = useSelector((state) => state.playerReducer);
+  const rooms = useSelector((state) => state.roomsReducer.rooms);
+  const dispatch = useDispatch();
+  // const { state } = useLocation();
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+    setMode(value);
+  }
+
+  const createRoom = () => {
+    if (user.userName && room !== "") {
+      // console.log(mode, room, user.userName);
+      socket.emit("create_room", { room, mode, username: user.userName })
+      console.log(rooms);
     }
-    useEffect(() => {
-        console.log("bigola");
-        // socket.on("updateRooms", (rooms) => {
-        //     console.log("farwila", rooms);
-        //     // console.log(rooms);
-        //     // setRooms([...rooms]);
-        //     // console.log(rooms);
-        // });
-        // socket.emit("getRooms");
-    }, [socket]);
-    // useEffect(() => {}, [rooms]);
-    return (
-        <StyledContainer>
-            {/* <h1 className="title">Rooms</h1> */}
-            <div className="create">
-                <h2 className="title">create room</h2>
-                <div className="container">
-                    <TextField
-                        className="create--input"
-                        id="standard-basic"
-                        label="room name"
-                        variant="outlined"
-                        value={roomName}
-                        onChange={(e) => setRoomName(e.target.value)}
-                    />
-                    <Select
-                        className="create--select"
-                        defaultValue="mode"
-                        onChange={handleChange}
-                    >
-                        <Option value="solo">solo</Option>
-                        <Option value="multiplayer">multiplayer</Option>
-                    </Select>
-                    <input
-                        type="submit"
-                        value="create"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            // console.log(roomName);
-                            // socket.emit("addRoom", {
-                            //   name: roomName,
-                            // });
-                            // console.log(roomName);
-                        }}
-                    />
-                </div>
-            </div>
-            <RoomCard />
-            {/* <JoinRoom>
-                <h2 className="title">join room</h2>
-                <div className="container">
-                    <header>
-                        <div className="item name">name</div>
-                        <div className="item mode">mode</div>
-                        <div className="item players">players</div>
-                        <div className="item status">status</div>
-                    </header>
-                    {rooms.map((room, index) => (
-                        <div key={index} className="room">
-                            <div className="item name">{room.name}</div>
-                            <div className="item mode">mode</div>
-                            <div className="item players">players</div>
-                            <div className="item status">status</div>
-                        </div>
-                    ))}
-                    {/* <div className="room">
-            <div className="item name">name</div>
-            <div className="item mode">mode</div>
-            <div className="item players">players</div>
-            <div className="item status">status</div>
-          </div> */}
-            {/* </div> */}
-            {/* </JoinRoom> */}
-        </StyledContainer>
-    );
+  }
+
+
+  useEffect(() => {
+    // console.log("the mode is", mode);
+    // dispatch(getRoomsRequest());
+    dispatch(getRoomsRequest());
+    // socket.emit("get_rooms");
+    socket.on("update_rooms", async (data) => {
+      console.log(data.created);
+      if (data.created)
+      {
+        console.log("add name", data.roomname);
+        setRoom(data.roomname);
+        try{
+
+          dispatch(addRoomName(data.roomname));
+        }catch{}
+
+      }
+      dispatch(updateRooms(data.rooms));
+    });
+    socket.on("room_exists", () => {
+      console.log("room_already_exist");
+      toast("Room already exist")
+    });
+    return () => {
+      socket.off("update_rooms");
+      socket.off("room_exists");
+    };
+
+
+  }, [])
+  // useEffect(() => {
+  //   console.log(state);
+  // }, [state]);
+  return (
+    <StyledContainer>
+      <ToastContainer />
+      {/* <h1 className="title">Rooms</h1> */}
+      <div className="create">
+        <h2 className="title">create room</h2>
+        <div className="container">
+          <TextField
+            className="create--input"
+            id="standard-basic"
+            label="room name"
+            variant="outlined"
+            onChange={(e) => { setRoom(e.target.value) }}
+          />
+          <Select
+            className="create--select"
+            defaultValue="mode"
+            onChange={handleChange}
+          >
+            <Option value="solo">solo</Option>
+            <Option value="battle">battle</Option>
+          </Select>
+          {/* <div> */}
+          <StartButton createRoom={createRoom} />
+          {/* <input type="submit" value="create" onClick={createRoom} /> */}
+        </div>
+      </div>
+      <JoinRoom>
+        <h2 className="title">join room</h2>
+        <div className="rooms-container">
+        {rooms.map((room, key) => (
+          <RoomCard room={room} key={key}/>
+            // <div className="room hover:bg-gray-700" key={key}>
+            //   <div className="item name">{room.name}</div>
+            //   <div className="item mode">{room.mode}</div>
+            //   <div className="item players">{room.playersIn}/{room.maxPlayers}</div>
+            //   <div className="item status">status</div>
+            // </div>
+          ))}
+        </div>
+      </JoinRoom>
+    </StyledContainer>
+  );
 };
 
 export default Rooms;
