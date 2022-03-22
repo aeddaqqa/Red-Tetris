@@ -2,6 +2,7 @@ import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
+import { addPlayer } from "../store/slices/playerSlice";
 import {
     StyledContainer,
     LeftSide,
@@ -16,20 +17,21 @@ import { getAvatar } from "../utils/Helpers";
 import parse from "html-react-parser";
 import { Popover, Button } from "antd";
 
-const Home = ({ socket, avatar, setAvatar }) => {
+const Home = () => {
     // let navigate = useNavigate();
     const [userName, setUserName] = useState("");
+    const [avatar, setAvatar] = useState("");
     const [errorUsername, setErrorUsername] = useState("");
     const dispatch = useDispatch();
     // const [avatar, setAvatar] = useState("");
     // const []
 
-    const addUsername = () => {
+    const add = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
         if (regex.test(userName)) {
-            socket.emit("new_user", { username: userName });
-            // dispatch(addUser(userName));
+            // socket.emit("new_user", { username: userName });
+            dispatch(addPlayer(userName));
         } else {
             setErrorUsername(
                 "username must be only alphanumerique between 4 and 16 characters"
@@ -50,7 +52,6 @@ const Home = ({ socket, avatar, setAvatar }) => {
         // };
     }, []);
     useEffect(() => {
-        // console.log(avatar)
         getAvatar()
             .then((avatar) => {
                 setAvatar(avatar);
@@ -70,7 +71,7 @@ const Home = ({ socket, avatar, setAvatar }) => {
                     className="form"
                     onSubmit={(event) => {
                         event.preventDefault();
-                        addUsername();
+                        dispatch(addPlayer(userName));
                     }}
                 >
                     <Popover

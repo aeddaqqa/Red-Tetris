@@ -23,7 +23,7 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-    const [avatar, setAvatar] = useState("");
+    // const [avatar, setAvatar] = useState("");
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(startConnecting());
@@ -35,7 +35,7 @@ function App() {
         <div className="App">
             <ThemeProvider theme={Theme}>
                 <StyledApp className="App">
-                    <Home avatar={avatar} setAvatar={setAvatar} />
+                    <Home />
                 </StyledApp>
             </ThemeProvider>
         </div>

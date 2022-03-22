@@ -16,6 +16,9 @@ const playerSlice = createSlice({
     name: "player",
     initialState,
     reducers: {
+        addPlayer(state, action) {
+            state.userName = action;
+        },
         addUserName(state, action) {
             state.userName = action;
         },
@@ -28,5 +31,6 @@ const playerSlice = createSlice({
     },
 });
 
-export const { addUserName, addAvatar, addRoomName } = playerSlice.actions;
+export const { addUserName, addAvatar, addRoomName, addPlayer } =
+    playerSlice.actions;
 export const playerReducer = playerSlice.reducer;
