@@ -7,8 +7,6 @@ const playerEvents = {
 };
 
 const initialState = {
-    connected: false,
-    connecting: false,
     userName: "",
     avatar: "",
     roomName: "",
@@ -18,12 +16,6 @@ const playerSlice = createSlice({
     name: "player",
     initialState,
     reducers: {
-        startConnecting(state) {
-            state.connecting = true;
-        },
-        isConnected(state) {
-            state.connected = true;
-        },
         addUserName(state, action) {
             state.userName = action;
         },
@@ -36,11 +28,5 @@ const playerSlice = createSlice({
     },
 });
 
-export const {
-    startConnecting,
-    isConnected,
-    addUserName,
-    addAvatar,
-    addRoomName,
-} = playerSlice.actions;
-export const chatReducer = playerSlice.reducer;
+export const { addUserName, addAvatar, addRoomName } = playerSlice.actions;
+export const playerReducer = playerSlice.reducer;

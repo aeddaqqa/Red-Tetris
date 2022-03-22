@@ -1,22 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-
-const logger = (store) => (next) => (action) => {
-    console.group(action.type);
-    console.log("state : ", store.getState());
-    console.info("dispatching", action);
-    let result = next(action);
-    // console.table(store.getState());
-    console.log("next state", store.getState());
-    console.groupEnd();
-    return result;
-};
+import { roomsReducer } from "./slices/roomsSlice";
+import { chatsReducer } from "./slices/chatsSlice";
+import { playerReducer } from "./slices/playerSlice";
+import { connectionReducer } from "./slices/connectionSlice";
+import { logger, socketMiddleware } from "./middleware";
 
 export const store = configureStore({
     reducer: {
+        connection: connectionReducer,
         rooms: roomsReducer,
-        chats: chatReducer,
+        chats: chatsReducer,
+        player: playerReducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([chatMiddleware, logger, thunk]),
+        getDefaultMiddleware().concat([logger, socketMiddleware, thunk]),
 });
