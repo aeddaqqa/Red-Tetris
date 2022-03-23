@@ -15,20 +15,22 @@ export const logger = (store) => (next) => (action) => {
 export const socketMiddleware = (store) => {
     let socket = Socket;
     return (next) => (action) => {
-        const Connected = socket && store.getState().connection.connected;
+        const Connected = store.getState().connection.connected;
         // console.log("pikal");
         if (startConnecting.match(action)) {
             socket = io("http://localhost:3001");
             socket.on("connect", () => {
                 store.dispatch(isConnected());
-                // console.log(store.getState().connection.connected);
             });
-            // store.dispatch(addPlayer(action.payload));
-            // }
         }
-        if (Connected && addPlayer.match(action)) {
-            console.log("pikouuuula");
-            socket.emit("new_user", action.payload);
+        if (Connected) {
+            if (addPlayer.match(action)) {
+                socket.emit("new_user", action.payload);
+            }
+            socket.on("userAdded", (data) => {
+                store.dispatch(addPlayer(data));
+                socket.off("userAdded");
+            });
         }
         next(action);
     };

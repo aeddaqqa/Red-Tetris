@@ -6,39 +6,55 @@ import "react-toastify/dist/ReactToastify.css";
 import Rooms from "./views/Rooms";
 import { Theme } from "./utils/theme";
 import NavBar from "./components/NavBar/NavBar";
+import NoMatch from "./components/NoMatch";
 import Game from "./views/Game";
 import Home from "./views/Home";
 import { startConnecting, isConnected } from "./store/slices/connectionSlice";
+import { Outlet, Route, Routes, Navigate } from "react-router";
 
 // const socket = io.connect("http://localhost:3001");
 
 const StyledApp = styled.div`
     width: 100vw;
     height: auto;
-    /* height: auto; */
     height: 100vh;
-    min-height: 100vh;
-    /* padding: 2rem; */
     background-color: ${(props) => props.theme.background.primary};
 `;
 
+const Layout = () => {
+    return (
+        <StyledApp>
+            <Outlet />
+        </StyledApp>
+    );
+};
+
+const ProtectedRoute = ({ children }) => {
+    const player = useSelector((state) => state.player);
+    if (player.userName) return <Outlet />;
+    return <Navigate to="/home" />;
+};
+
 function App() {
-    // const [avatar, setAvatar] = useState("");
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(startConnecting());
-        // dispatch(isConnected());
-    }, []);
+    }, [dispatch]);
 
     return (
-        // <BrowserRouter>
-        <div className="App">
-            <ThemeProvider theme={Theme}>
-                <StyledApp className="App">
-                    <Home />
-                </StyledApp>
-            </ThemeProvider>
-        </div>
+        <ThemeProvider theme={Theme}>
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route index path="home" element={<Home />} />
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="rooms" element={<Rooms />} />
+                        <Route path="game" element={<Game />} />
+                    </Route>
+                    <Route path="*" element={<NoMatch />} />
+                </Route>
+            </Routes>
+        </ThemeProvider>
     );
 }
 

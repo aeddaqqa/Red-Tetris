@@ -17,7 +17,7 @@ const playerSlice = createSlice({
     initialState,
     reducers: {
         addPlayer(state, action) {
-            state.userName = action;
+            state.userName = action.payload;
         },
         addUserName(state, action) {
             state.userName = action;

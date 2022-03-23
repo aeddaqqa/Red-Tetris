@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
@@ -9,28 +8,25 @@ import {
     RightSide,
     StyledAvatar,
 } from "./Home.Style";
-import { addUser, clearUser } from "../reducers/playerSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { StyledStartButton1 } from "../components/StartButton/StyledStartButton";
 import { getAvatar } from "../utils/Helpers";
 import parse from "html-react-parser";
-import { Popover, Button } from "antd";
+import { Popover } from "antd";
+import { useNavigate } from "react-router";
 
 const Home = () => {
-    // let navigate = useNavigate();
     const [userName, setUserName] = useState("");
     const [avatar, setAvatar] = useState("");
     const [errorUsername, setErrorUsername] = useState("");
     const dispatch = useDispatch();
-    // const [avatar, setAvatar] = useState("");
-    // const []
-
+    const state = useSelector((state) => state);
+    const navigate = useNavigate();
     const add = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
         if (regex.test(userName)) {
-            // socket.emit("new_user", { username: userName });
             dispatch(addPlayer(userName));
         } else {
             setErrorUsername(
@@ -38,19 +34,10 @@ const Home = () => {
             );
         }
     };
-
     useEffect(() => {
-        // socket.on("user_exists", (data) => {
-        //   console.log("user_already_exist", userName);
-        //   if (data.error)
-        //   toast("user already exist")
-        //   else
-        //   dispatch(addUser(data.username));
-        // });
-        // return () => {
-        //   socket.off("user_exists");
-        // };
-    }, []);
+        // console.log(state);
+        if (state.player.userName) navigate("/rooms");
+    }, [state]);
     useEffect(() => {
         getAvatar()
             .then((avatar) => {
@@ -71,7 +58,7 @@ const Home = () => {
                     className="form"
                     onSubmit={(event) => {
                         event.preventDefault();
-                        dispatch(addPlayer(userName));
+                        add();
                     }}
                 >
                     <Popover
@@ -100,12 +87,7 @@ const Home = () => {
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
                     />
-                    {/* <input type="submit" /> */}
-                    {/* <StartButton /> */}
-                    <StyledStartButton1>
-                        {/* <div style={{marginTop:"-8px"}}></div> */}
-                        play
-                    </StyledStartButton1>
+                    <StyledStartButton1>play</StyledStartButton1>
                     <span style={{ color: "red" }}>{errorUsername}</span>
                 </form>
             </RightSide>
