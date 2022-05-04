@@ -1,20 +1,23 @@
 import "./App.css";
+import Home from "./views/Home";
+import styled, { ThemeProvider } from "styled-components";
+import { Theme } from "./utils/theme";
+
+const StyledApp = styled.div`
+    width: 100vw;
+    height: auto;
+    height: 100vh;
+    background-color: ${(props) => props.theme.background.primary};
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={Theme}>
+            <StyledApp>
+                <Home />
+            </StyledApp>
+        </ThemeProvider>
+    );
 }
 
 export default App;

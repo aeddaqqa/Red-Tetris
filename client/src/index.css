@@ -1,3 +1,7 @@
+@import "~antd/dist/antd.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,33 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+*, *::before, *::after {
+  padding: 0;
+  margin : 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "DEBUG";
+  src: url("../assets/fonts/debug-font/misc/DEBUG FREE TRIAL-5b92.woff")
+    format("woff");
+}
+
+@font-face {
+  font-family: "saira";
+  src: url("../assets/fonts/Saira/Saira-VariableFont_wdth,wght.ttf")
+    format("woff");
+}
+
+@font-face {
+  font-family: "stranger";
+  src: url("../assets/fonts/stranger_things/Benguiat_Bold.ttf")
+    format("woff");
+}
+
+@font-face {
+  font-family: "Pixel";
+  src: url("../assets/fonts/Pixel-LCD-7.woff") format("woff");
 }
