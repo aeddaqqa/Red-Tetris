@@ -6,6 +6,7 @@ const { Server } = require("socket.io");
 
 let rooms = [];
 let players = [];
+var allClients = [];
 
 const server = http.createServer(app);
 
@@ -19,7 +20,13 @@ const io = new Server(server, {
 app.use(cors());
 
 io.on("connection", (socket) => {
-    console.log("connected");
+    allClients.push(socket);
+    console.log("userconnecter =>", socket.id);
+    socket.on("disconnect", () => {
+        var i = allClients.indexOf(socket);
+        allClients.splice(i, 1);
+        console.log("User disconnected =>", socket.id);
+    });
 });
 
 server.listen(3001, () => {});
