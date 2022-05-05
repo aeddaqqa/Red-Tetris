@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client": "npm start --prefix client",
+    "server": "nodemon server/index.js",
     "test": "npm test --prefix client",
     "test:coverage": "npm run test:coverage --prefix client"
   },
@@ -17,6 +18,9 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.20.2",
     "concurrently": "^7.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
@@ -24,6 +28,7 @@
     "react-toastify": "^9.0.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "socket.io": "^4.5.0",
     "socket.io-client": "^4.5.0",
     "styled-components": "^5.3.5"
   },

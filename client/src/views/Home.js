@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { StyledStartButton1 } from "../components/StartButton/StartButton.style";
 import { ToastContainer, toast } from "react-toastify";
 import { Popover } from "antd";
+import { startConnecting } from "../store/slices/connectionSlice";
 const Avatars = [
     { id: 0, name: "Agoumi", ImagePng: "Agoumi.png" },
     { id: 1, name: "Binx_Bond", ImagePng: "Binx_Bond.png" },
@@ -23,7 +24,7 @@ const Home = () => {
     const dispatch = useDispatch();
     var [avatar, setAvatar] = useState(Avatars[Math.floor(Math.random() * 10)]);
 
-    const state = useSelector((state) => state);
+    // const state = useSelector((state) => state);
     const addUsername = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
@@ -41,6 +42,9 @@ const Home = () => {
         if (Id < 9) setAvatar(Avatars[Id + 1]);
         else if (Id === 9) setAvatar(Avatars[0]);
     };
+    useEffect(() => {
+        dispatch(startConnecting());
+    }, []);
 
     return (
         <StyledContainer>
