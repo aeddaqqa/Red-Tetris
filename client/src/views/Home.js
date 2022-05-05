@@ -1,94 +1,111 @@
-import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-import { addPlayer } from "../store/slices/playerSlice";
-import {
-    StyledContainer,
-    LeftSide,
-    RightSide,
-    StyledAvatar,
-} from "./Home.Style";
-import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
-import { StyledStartButton1 } from "../components/StartButton/StyledStartButton";
-import { getAvatar } from "../utils/Helpers";
-import parse from "html-react-parser";
+import { StyledContainer, LeftSide, RightSide } from "./Home.style";
+import { useSelector, useDispatch } from "react-redux";
+import { StyledStartButton1 } from "../components/StartButton/StartButton.style";
+import { ToastContainer, toast } from "react-toastify";
 import { Popover } from "antd";
-import { useNavigate } from "react-router";
+import { startConnecting } from "../store/slices/connectionSlice";
+const Avatars = [
+    { id: 0, name: "Agoumi", ImagePng: "Agoumi.png" },
+    { id: 1, name: "Binx_Bond", ImagePng: "Binx_Bond.png" },
+    { id: 2, name: "Cosmo_Blue", ImagePng: "Cosmo_Blue.png" },
+    { id: 3, name: "Cute_Cowboy", ImagePng: "Cute_Cowboy.png" },
+    { id: 4, name: "Pechorin_Bloom", ImagePng: "Pechorin_Bloom.png" },
+    { id: 5, name: "ChingChang", ImagePng: "ChingChang.png" },
+    { id: 6, name: "Gawri", ImagePng: "Gawri.png" },
+    { id: 7, name: "Gadouma", ImagePng: "Gadouma.png" },
+    { id: 8, name: "Morty", ImagePng: "Morty.png" },
+    { id: 9, name: "Rhett_James", ImagePng: "Rhett_James.png" },
+];
 
 const Home = () => {
     const [userName, setUserName] = useState("");
-    const [avatar, setAvatar] = useState("");
     const [errorUsername, setErrorUsername] = useState("");
     const dispatch = useDispatch();
-    const state = useSelector((state) => state);
-    const navigate = useNavigate();
-    const add = () => {
+    var [avatar, setAvatar] = useState(Avatars[Math.floor(Math.random() * 10)]);
+
+    // const state = useSelector((state) => state);
+    const addUsername = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
         if (regex.test(userName)) {
-            dispatch(addPlayer(userName));
+            console.log("pikala");
+            //   dispatch(addUser({ username: userName, avatar: avatar.ImagePng }));
         } else {
             setErrorUsername(
                 "username must be only alphanumerique between 4 and 16 characters"
             );
         }
     };
+    const ChangeAvatar = (data) => {
+        var Id = data.id;
+        if (Id < 9) setAvatar(Avatars[Id + 1]);
+        else if (Id === 9) setAvatar(Avatars[0]);
+    };
     useEffect(() => {
-        // console.log(state);
-        if (state.player.userName) navigate("/rooms");
-    }, [state]);
-    useEffect(() => {
-        getAvatar()
-            .then((avatar) => {
-                setAvatar(avatar);
-            })
-            .catch((err) => {
-                console.log(err.response.data);
-            });
+        dispatch(startConnecting());
     }, []);
+
     return (
         <StyledContainer>
             <ToastContainer />
             <RightSide>
                 <div className="title">
-                    Red <span>Tetris</span>
+                    <span style={{ color: "#f9253c" }}>Red</span>
+                    <span style={{ color: "white" }}>Tetris</span>
                 </div>
                 <form
                     className="form"
                     onSubmit={(event) => {
                         event.preventDefault();
-                        add();
+                        addUsername();
+                        setUserName("");
                     }}
                 >
-                    <Popover
-                        placement="left"
-                        content={"Click here to change your avatar"}
+                    <div
+                        className="w-52 h-52 relative mb-4"
+                        onClick={() => ChangeAvatar(avatar)}
                     >
-                        <StyledAvatar
-                            onClick={() => {
-                                getAvatar()
-                                    .then((avatar) => {
-                                        setAvatar(avatar);
-                                    })
-                                    .catch((err) => {
-                                        console.log(err.response.data);
-                                    });
-                            }}
+                        <Popover
+                            placement="left"
+                            content={"Click here to change your Avatar"}
                         >
-                            {avatar ? parse(avatar) : ""}
-                        </StyledAvatar>
-                    </Popover>
-                    <TextField
-                        className="input"
-                        id="outlined-basic"
-                        label="username"
-                        variant="outlined"
+                            <div className="group w-full h-full rounded-full overflow-hidden shadow-inner text-center  table cursor-pointer">
+                                <img
+                                    src={require("../images/Avatars/" +
+                                        avatar.ImagePng)}
+                                    alt="Avatar"
+                                    className="object-cover object-center w-full h-full"
+                                />
+                            </div>
+                        </Popover>
+                    </div>
+                    <input
+                        className={
+                            "input mx-auto animate-fade appearance-none block bg-transparent rounded py-4 px-4 mb-3 leading-tight focus:outline-none"
+                        }
+                        type="text"
+                        placeholder="Username"
                         value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
+                        onChange={(e) => {
+                            setUserName(e.target.value);
+                        }}
+                        style={{
+                            fontFamily: "Pixel",
+                            border: "1px solid #f9253c",
+                            color: "whitesmoke",
+                        }}
                     />
                     <StyledStartButton1>play</StyledStartButton1>
-                    <span style={{ color: "red" }}>{errorUsername}</span>
+                    <span
+                        style={{
+                            fontSize: "20px",
+                            color: "#f9253c",
+                            fontFamily: "'Saira', sans-serif",
+                        }}
+                    >
+                        {errorUsername}
+                    </span>
                 </form>
             </RightSide>
             <LeftSide />

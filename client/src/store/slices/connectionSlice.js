@@ -19,4 +19,4 @@ const connectionSlice = createSlice({
 });
 
 export const { startConnecting, isConnected } = connectionSlice.actions;
-export const connectionReducer = connectionSlice.reducer;
+export default connectionSlice.reducer;
