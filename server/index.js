@@ -42,10 +42,9 @@ io.on("connection", (socket) => {
                 username: data.username,
                 avatar: data.avatar,
             });
+        } else {
+            socket.emit("addPlayerFail", { error: "user existe" });
         }
-        // } else {
-        //     socket.emit("user_exists", { error: "user existe" });
-        // }
     });
     /**||||||||||||||||||||||||||||||||||||||||||*/
     socket.on("disconnect", () => {

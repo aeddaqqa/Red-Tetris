@@ -18,6 +18,9 @@ export const socketMiddleware = (store) => {
             socket.on("addPlayerSuccess", (data) => {
                 store.dispatch(addPlayerSuccess(data));
             });
+            socket.on("addPlayerFail", (data) => {
+                store.dispatch(addPlayerFail(data));
+            });
         }
         if (Connected) {
             if (addPlayerRequest.match(action))

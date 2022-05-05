@@ -31,10 +31,7 @@ const Home = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
         if (regex.test(userName)) {
-            // console.log("pikala");
             dispatch(addPlayerRequest({ username: userName, avatar }));
-            // dispatch(addPlayerRequest())
-            //   dispatch(addUser({ username: userName, avatar: avatar.ImagePng }));
         } else {
             setErrorUsername(
                 "username must be only alphanumerique between 4 and 16 characters"
