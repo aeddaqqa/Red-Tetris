@@ -5,6 +5,8 @@ import { StyledStartButton1 } from "../components/StartButton/StartButton.style"
 import { ToastContainer, toast } from "react-toastify";
 import { Popover } from "antd";
 import { startConnecting } from "../store/slices/connectionSlice";
+import { addPlayerRequest } from "../store/slices/playerSlice";
+
 const Avatars = [
     { id: 0, name: "Agoumi", ImagePng: "Agoumi.png" },
     { id: 1, name: "Binx_Bond", ImagePng: "Binx_Bond.png" },
@@ -29,7 +31,9 @@ const Home = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
         if (regex.test(userName)) {
-            console.log("pikala");
+            // console.log("pikala");
+            dispatch(addPlayerRequest({ username: userName, avatar }));
+            // dispatch(addPlayerRequest())
             //   dispatch(addUser({ username: userName, avatar: avatar.ImagePng }));
         } else {
             setErrorUsername(
