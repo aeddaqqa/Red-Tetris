@@ -16,7 +16,6 @@ export const playerSlice = createSlice({
             state.loading = true;
         },
         addPlayerSuccess(state, action) {
-            console.log(action);
             state.userName = action.payload.username;
             state.avatar = action.payload.avatar;
             state.loading = false;
