@@ -45,14 +45,12 @@ export const RightSide = styled.div`
     align-items: center;
     justify-content: center;
     .title {
-        // background-color: blue;
         width: 100%;
         text-align: center;
         font-size: 4em;
-        // padding: ${(props) => props.theme.headers.h1.padding};
         font-family: Pixel, Arial, Helvetica, sans-serif;
-        font-weight: ${(props) => props.theme.headers.h1.fontWeight};
-        letter-spacing: ${(props) => props.theme.headers.h1.letterSpacing};
+        font-weight: ${(props) => props.theme?.headers?.h1?.fontWeight};
+        letter-spacing: ${(props) => props.theme?.headers?.h1?.letterSpacing};
         color: #f9253c;
         padding-bottom: 2rem;
         span {
@@ -84,11 +82,11 @@ export const RightSide = styled.div`
             width: 10%;
             padding: 1rem;
             border-radius: 10px;
-            font-size: ${(props) => props.theme.message.fontSize};
-            font-family: ${(props) => props.theme.message.font};
-            letter-spacing: ${(props) => props.theme.message.letterSpacing};
-            color: ${(props) => props.theme.message.color};
-            background: ${(props) => props.theme.message.background};
+            font-size: ${(props) => props.theme?.message?.fontSize};
+            font-family: ${(props) => props.theme?.message?.font};
+            letter-spacing: ${(props) => props.theme?.message?.letterSpacing};
+            color: ${(props) => props.theme?.message?.color};
+            background: ${(props) => props.theme?.message?.background};
             border: none;
             outline: none;
             &:focus {
