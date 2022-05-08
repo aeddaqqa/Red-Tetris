@@ -63,7 +63,8 @@ const Home = () => {
                         setUserName("");
                     }}
                 >
-                    <div
+                    <span
+                        title="changeAvatar"
                         className="w-52 h-52 relative mb-4"
                         onClick={() => ChangeAvatar(avatar)}
                     >
@@ -80,12 +81,13 @@ const Home = () => {
                                 />
                             </div>
                         </Popover>
-                    </div>
+                    </span>
                     <input
                         className={
                             "input mx-auto animate-fade appearance-none block bg-transparent rounded py-4 px-4 mb-3 leading-tight focus:outline-none"
                         }
                         type="text"
+                        mame="playername"
                         placeholder="Username"
                         value={userName}
                         onChange={(e) => {
@@ -98,15 +100,18 @@ const Home = () => {
                         }}
                     />
                     <StyledStartButton1>play</StyledStartButton1>
-                    <span
-                        style={{
-                            fontSize: "20px",
-                            color: "#f9253c",
-                            fontFamily: "'Saira', sans-serif",
-                        }}
-                    >
-                        {errorUsername}
-                    </span>
+                    {errorUsername && (
+                        <span
+                            title="errorMessage"
+                            style={{
+                                fontSize: "20px",
+                                color: "#f9253c",
+                                fontFamily: "'Saira', sans-serif",
+                            }}
+                        >
+                            {errorUsername}
+                        </span>
+                    )}
                 </form>
             </RightSide>
             <LeftSide />
