@@ -9,7 +9,7 @@ import {
 export const socketMiddleware = (store) => {
     let socket = Socket;
     return (next) => (action) => {
-        const Connected = store.getState().connection.connected;
+        const Connected = store.getState()?.connection?.connected;
         if (startConnecting.match(action)) {
             socket = io("http://localhost:3001");
             socket.on("connect", () => {

@@ -27,7 +27,6 @@ io.on("connection", (socket) => {
         const exist = players.find(
             (player) => player.username === data.username
         );
-        console.log(data);
         if (!exist) {
             players = [
                 ...players,
