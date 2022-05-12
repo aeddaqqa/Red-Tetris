@@ -5,6 +5,12 @@ import {
     addPlayerSuccess,
     addPlayerFail,
 } from "./slices/playerSlice";
+import {
+    updateRooms,
+    getRoomsRequest,
+    getRoomsSuccess,
+    getRoomsFailed,
+} from "./slices/roomsSlice";
 
 export const socketMiddleware = (store) => {
     let socket = Socket;
@@ -21,10 +27,14 @@ export const socketMiddleware = (store) => {
             socket.on("addPlayerFail", (data) => {
                 store.dispatch(addPlayerFail(data));
             });
+            socket.on("getRooms", (data) => {
+                store.dispatch(getRoomsSuccess(data));
+            });
         }
         if (Connected) {
             if (addPlayerRequest.match(action))
                 socket.emit("addPlayerRequest", action.payload);
+            else if (getRoomsRequest.match(action)) socket.emit("getRooms");
         }
         next(action);
     };

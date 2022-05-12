@@ -22,7 +22,7 @@ app.use(cors());
 io.on("connection", (socket) => {
     allClients.push(socket);
     console.log("userConnected =>", socket.id);
-    /**||||||||||||||||||||||||||||||||||||||||||*/
+    /*-------------ADD PLAYER-------------*/
     socket.on("addPlayerRequest", (data) => {
         const exist = players.find(
             (player) => player.username === data.username
@@ -45,7 +45,11 @@ io.on("connection", (socket) => {
             socket.emit("addPlayerFail", { error: "user existe" });
         }
     });
-    /**||||||||||||||||||||||||||||||||||||||||||*/
+    /*-------------GET ROOMS-------------*/
+    socket.on("getRooms", () => {
+        socket.emit("getRooms", { rooms: rooms });
+    });
+    /*-------------DISCONNECT SOCKET-------------*/
     socket.on("disconnect", () => {
         var i = allClients.indexOf(socket);
         allClients.splice(i, 1);

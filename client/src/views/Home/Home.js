@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { StyledContainer, LeftSide, RightSide } from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
-import { StyledStartButton1 } from "../components/StartButton/StartButton.style";
+import { StyledStartButton1 } from "../../components/StartButton/StartButton.style";
 import { ToastContainer, toast } from "react-toastify";
 import { Popover } from "antd";
-import { startConnecting } from "../store/slices/connectionSlice";
-import { addPlayerRequest } from "../store/slices/playerSlice";
+import { startConnecting } from "../../store/slices/connectionSlice";
+import { addPlayerRequest } from "../../store/slices/playerSlice";
 
 const Avatars = [
     { id: 0, name: "Agoumi", ImagePng: "Agoumi.png" },
@@ -26,7 +26,6 @@ const Home = () => {
     const dispatch = useDispatch();
     var [avatar, setAvatar] = useState(Avatars[Math.floor(Math.random() * 10)]);
 
-    // const state = useSelector((state) => state);
     const addUsername = () => {
         userName.trim();
         const regex = /^[a-zA-Z0-9]{4,16}$/;
@@ -47,6 +46,11 @@ const Home = () => {
         dispatch(startConnecting());
     }, []);
 
+    const { player } = useSelector((state) => state);
+    useEffect(() => {
+        if (player.error) toast(player.error);
+        console.log(player);
+    }, [player]);
     return (
         <StyledContainer>
             <ToastContainer />
@@ -74,7 +78,7 @@ const Home = () => {
                         >
                             <div className="group w-full h-full rounded-full overflow-hidden shadow-inner text-center  table cursor-pointer">
                                 <img
-                                    src={require("../images/Avatars/" +
+                                    src={require("../../images/Avatars/" +
                                         avatar.ImagePng)}
                                     alt="Avatar"
                                     className="object-cover object-center w-full h-full"
