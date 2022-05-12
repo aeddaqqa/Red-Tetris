@@ -4,6 +4,9 @@ import {
     addPlayerRequest,
     addPlayerSuccess,
     addPlayerFail,
+    addRoomName,
+    setAdmin,
+    addRoomRequest,
 } from "./slices/playerSlice";
 import {
     updateRooms,
@@ -30,11 +33,20 @@ export const socketMiddleware = (store) => {
             socket.on("getRooms", (data) => {
                 store.dispatch(getRoomsSuccess(data));
             });
+            socket.on("updateRooms", (data) => {
+                store.dispatch(updateRooms(data.rooms));
+            });
+            socket.on("createRoomSucces", (data) => {
+                store.dispatch(addRoomName(data.rooms));
+                store.dispatch(setAdmin(1));
+            });
         }
         if (Connected) {
             if (addPlayerRequest.match(action))
                 socket.emit("addPlayerRequest", action.payload);
             else if (getRoomsRequest.match(action)) socket.emit("getRooms");
+            else if (addRoomRequest.match(action))
+                socket.emit("createRoomRequest", action.payload);
         }
         next(action);
     };

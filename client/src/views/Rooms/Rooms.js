@@ -43,8 +43,8 @@ const Rooms = () => {
     const [active, setActive] = useState(false);
     const [room, setRoom] = useState("");
     const [roomError, setRoomError] = useState("");
-    const user = useSelector((state) => state.player);
-    const rooms = useSelector((state) => state.rooms);
+    const { player } = useSelector((state) => state);
+    const { rooms } = useSelector((state) => state.rooms);
     const dispatch = useDispatch();
 
     function handleModeChange(value) {
@@ -53,11 +53,11 @@ const Rooms = () => {
     }
 
     const createRoom = () => {
-        // if (user.userName && room !== "" && mode !== "Mode") {
-        //     dispatch(addRoomRequest({ room, mode }));
-        // } else {
-        //     setRoomError("Please Enter room name and choose mode");
-        // }
+        if (player.userName && room !== "" && mode !== "Mode") {
+            dispatch(addRoomRequest({ room, mode }));
+        } else {
+            setRoomError("Please Enter room name and choose mode");
+        }
     };
 
     const joinRoom = (data) => {
@@ -68,10 +68,13 @@ const Rooms = () => {
         //     else dispatch(joinRoomRequest(data));
         // }
     };
+    useEffect(() => {
+        console.log(rooms);
+    }, [rooms]);
 
-    // useEffect(() => {
-    //     dispatch(getRoomsRequest());
-    // }, []);
+    useEffect(() => {
+        dispatch(getRoomsRequest());
+    }, []);
 
     // useEffect(() => {
     //     if (user.roomError) {
@@ -225,7 +228,7 @@ const Rooms = () => {
                         ) : (
                             ""
                         )}
-                        {/* {rooms.length
+                        {rooms.length
                             ? rooms.map((room, key) => (
                                   <RoomCard
                                       room={room}
@@ -233,7 +236,7 @@ const Rooms = () => {
                                       joinRoom={joinRoom}
                                   />
                               ))
-                            : ""} */}
+                            : ""}
                     </div>
                 </JoinRoom>
             </div>

@@ -28,11 +28,28 @@ export const playerSlice = createSlice({
             state.error = action.payload.error;
             state.loading = false;
         },
+        addRoomRequest: (state, action) => {
+            state.loading = true;
+        },
+        addRoomName: (state, action) => {
+            state.roomName = action.payload;
+            state.loading = false;
+        },
+        setAdmin: (state, action) => {
+            if (action.payload === 1) state.admin = true;
+            else state.admin = false;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { addPlayerRequest, addPlayerSuccess, addPlayerFail } =
-    playerSlice.actions;
+export const {
+    addPlayerRequest,
+    addPlayerSuccess,
+    addPlayerFail,
+    addRoomRequest,
+    addRoomName,
+    setAdmin,
+} = playerSlice.actions;
 
 export default playerSlice.reducer;

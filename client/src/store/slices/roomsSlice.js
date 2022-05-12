@@ -16,9 +16,11 @@ export const roomsSlice = createSlice({
         },
         getRoomsFailed: (state, action) => {
             state.error = action.payload;
+            state.loading = false;
         },
         updateRooms: (state, action) => {
             state.rooms = action.payload;
+            state.loading = false;
         },
     },
 });

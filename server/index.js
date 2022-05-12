@@ -49,6 +49,46 @@ io.on("connection", (socket) => {
     socket.on("getRooms", () => {
         socket.emit("getRooms", { rooms: rooms });
     });
+    /*-------------ADD ROOM-------------*/
+    socket.on("createRoomRequest", (data) => {
+        const exist = rooms.find((room) => room.name === data.room);
+        const player = players.find(
+            (player) =>
+                player.username === data.username &&
+                player.socketId === socket.id
+        );
+        if (!exist) {
+            if (data.mode === "battle")
+                rooms = [
+                    ...rooms,
+                    {
+                        name: data.room,
+                        mode: data.mode,
+                        maxPlayers: 5,
+                        playersIn: 1,
+                        state: false,
+                    },
+                ];
+            else
+                rooms = [
+                    ...rooms,
+                    {
+                        name: data.room,
+                        mode: data.mode,
+                        maxPlayers: 1,
+                        playersIn: 1,
+                        state: false,
+                    },
+                ];
+            if (player) {
+                player.room = data?.room;
+                player.admin = true;
+            }
+            socket.join(data.room);
+            socket.emit("createRoomSucces", data.room);
+            io.emit("updateRooms", { rooms: rooms });
+        }
+    });
     /*-------------DISCONNECT SOCKET-------------*/
     socket.on("disconnect", () => {
         var i = allClients.indexOf(socket);
