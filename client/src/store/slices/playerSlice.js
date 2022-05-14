@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// addRoomName,
-// addRoomRequest,
-// joinRoomRequest,
-
 export const playerSlice = createSlice({
     name: "playerReducer",
     initialState: {
@@ -14,6 +10,7 @@ export const playerSlice = createSlice({
         roomError: null,
         loading: false,
         chat: [],
+        admin: null,
     },
     reducers: {
         addPlayerRequest(state) {

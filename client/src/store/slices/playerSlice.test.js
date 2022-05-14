@@ -1,4 +1,4 @@
-import reducer from "./playerSlice";
+import reducer, { addRoomName, addRoomRequest, setAdmin } from "./playerSlice";
 import {
     addPlayerRequest,
     addPlayerSuccess,
@@ -16,6 +16,12 @@ describe("test connection slice", () => {
         chat: [],
     };
     let player = { id: 0, name: "Agoumi", ImagePng: "Agoumi.png" };
+    let playerLogged = {
+        ...initialValue,
+        loading: false,
+        userName: "farwila",
+        avatar: player,
+    };
     test("should return the initial value", () => {
         expect(reducer(undefined, {})).toEqual(initialValue);
     });
@@ -50,6 +56,27 @@ describe("test connection slice", () => {
             error: "user existe",
         });
     });
+    test("add room request", () => {
+        expect(reducer({ ...playerLogged }, addRoomRequest())).toEqual({
+            ...playerLogged,
+            loading: true,
+        });
+    });
+    test("add room name", () => {
+        expect(reducer({ ...playerLogged }, addRoomName("pikala"))).toEqual({
+            ...playerLogged,
+            loading: false,
+            roomName: "pikala",
+        });
+    });
+    test("set player as admin", () => {
+        expect(
+            reducer({ ...playerLogged, roomName: "pikala" }, setAdmin(1))
+        ).toEqual({
+            ...playerLogged,
+            loading: false,
+            roomName: "pikala",
+            admin: true,
+        });
+    });
 });
-
-// {id:0,name:'Agoumi',ImagePng:'Agoumi.png'}

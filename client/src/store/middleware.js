@@ -37,7 +37,7 @@ export const socketMiddleware = (store) => {
                 store.dispatch(updateRooms(data.rooms));
             });
             socket.on("createRoomSucces", (data) => {
-                store.dispatch(addRoomName(data.rooms));
+                store.dispatch(addRoomName(data));
                 store.dispatch(setAdmin(1));
             });
         }

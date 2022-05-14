@@ -13,9 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import StartButton from "../../components/StartButton/StartButton";
 import { AiOutlineUser } from "react-icons/ai";
 // import { updatePlayers } from "../../store/slices/playersSlice";
-import { Empty } from "antd";
 import Loader from "../../components/Loader";
-import Select from "react-select";
 
 import { Badge } from "antd";
 
@@ -36,15 +34,13 @@ const RoomCard = ({ room, joinRoom }) => {
     );
 };
 
-const { Option } = Select;
-
 const Rooms = () => {
     const [mode, setMode] = useState("Mode");
     const [active, setActive] = useState(false);
     const [room, setRoom] = useState("");
     const [roomError, setRoomError] = useState("");
     const { player } = useSelector((state) => state);
-    const { rooms } = useSelector((state) => state.rooms);
+    const { rooms, error } = useSelector((state) => state.rooms);
     const dispatch = useDispatch();
 
     function handleModeChange(value) {
@@ -61,12 +57,13 @@ const Rooms = () => {
     };
 
     const joinRoom = (data) => {
-        // const exist = rooms.find((room) => room.name === data);
-        // if (exist) {
-        //     if (exist.mode === "solo") toast("You can't join a solo game");
-        //     if (exist.playersIn >= 5) toast("This room is full");
-        //     else dispatch(joinRoomRequest(data));
-        // }
+        const exist = rooms.find((room) => room.name === data);
+        if (exist) {
+            if (exist.mode === "solo") toast("You can't join a solo game");
+            if (exist.playersIn >= 5) toast("This room is full");
+            //   else
+            // dispatch(joinRoomRequest(data));
+        }
     };
     useEffect(() => {
         console.log(rooms);
@@ -76,14 +73,11 @@ const Rooms = () => {
         dispatch(getRoomsRequest());
     }, []);
 
-    // useEffect(() => {
-    //     if (user.roomError) {
-    //         toast(user.roomError);
-    //     } else if (user.roomName) {
-    //         console.log("bigola");
-    //         // navigate("/game");
-    //     }
-    // }, [user]);
+    useEffect(() => {
+        if (error) {
+            toast(error);
+        }
+    }, [error]);
     return (
         <StyledContainer>
             <ToastContainer />
@@ -228,7 +222,7 @@ const Rooms = () => {
                         ) : (
                             ""
                         )}
-                        {rooms.length
+                        {rooms?.length
                             ? rooms.map((room, key) => (
                                   <RoomCard
                                       room={room}

@@ -47,7 +47,7 @@ io.on("connection", (socket) => {
     });
     /*-------------GET ROOMS-------------*/
     socket.on("getRooms", () => {
-        socket.emit("getRooms", { rooms: rooms });
+        socket.emit("getRooms", rooms);
     });
     /*-------------ADD ROOM-------------*/
     socket.on("createRoomRequest", (data) => {

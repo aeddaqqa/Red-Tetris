@@ -4,7 +4,7 @@ export const roomsSlice = createSlice({
     name: "roomsReducer",
     initialState: {
         loading: false,
-        rooms: [],
+        rooms: null,
         error: null,
     },
     reducers: {
