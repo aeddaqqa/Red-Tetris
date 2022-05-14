@@ -89,6 +89,36 @@ io.on("connection", (socket) => {
             io.emit("updateRooms", { rooms: rooms });
         }
     });
+    /*-------------JOIN ROOM-------------*/
+    socket.on("join_room", (data) => {
+        const joinedRoom = rooms.find((room) => room.name === data.room);
+        const player = players.find(
+            (player) => player.username === data.username
+        );
+        if (joinedRoom) {
+            if (joinedRoom.mode === "battle" && joinedRoom.playersIn < 5) {
+                socket.join(data.room);
+                player.room = data?.room;
+                player.admin = false;
+                joinedRoom.playersIn += 1;
+                socket.emit("roomJoinedSuccess", data.room);
+                // io.to(data.room).emit("chat", {
+                //     message: `Player ${data.username} joined the room ${data.room}`,
+                //     type: "join",
+                // });
+                io.emit("updateRooms", { rooms: rooms });
+            }
+        }
+        // } else if (data.hash && data.room) {
+        //     socket.join(data.room);
+        //     socket.emit("room_created", data.room);
+        //     io.to(data.room).emit("chat", {
+        //         message: `Player ${data.username} created the room ${data.room}`,
+        //         type: "join",
+        //     });
+        //     io.emit("update_rooms", { rooms: rooms });
+        // }
+    });
     /*-------------DISCONNECT SOCKET-------------*/
     socket.on("disconnect", () => {
         var i = allClients.indexOf(socket);

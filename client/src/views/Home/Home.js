@@ -47,9 +47,9 @@ const Home = () => {
         if (Id < 9) setAvatar(Avatars[Id + 1]);
         else if (Id === 9) setAvatar(Avatars[0]);
     };
-    useEffect(() => {
-        dispatch(startConnecting());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(startConnecting());
+    // }, []);
 
     const { player } = useSelector((state) => state);
     useEffect(() => {

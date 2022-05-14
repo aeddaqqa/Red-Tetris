@@ -36,6 +36,9 @@ export const playerSlice = createSlice({
             if (action.payload === 1) state.admin = true;
             else state.admin = false;
         },
+        joinRoomRequest: (state, action) => {
+            state.loading = true;
+        },
     },
 });
 
@@ -47,6 +50,7 @@ export const {
     addRoomRequest,
     addRoomName,
     setAdmin,
+    joinRoomRequest,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

@@ -61,8 +61,7 @@ const Rooms = () => {
         if (exist) {
             if (exist.mode === "solo") toast("You can't join a solo game");
             if (exist.playersIn >= 5) toast("This room is full");
-            //   else
-            // dispatch(joinRoomRequest(data));
+            else dispatch(joinRoomRequest(data));
         }
     };
     useEffect(() => {
