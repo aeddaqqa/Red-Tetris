@@ -20,11 +20,11 @@ export const StyledNav = styled.nav`
             height: 100%;
             align-items: center;
             font-size: 2rem;
-            font-family: ${(props) => props.theme.headers.h1.font};
+            font-family: ${(props) => props.theme.headers?.h1?.font};
             &--title {
                 color: whitesmoke;
                 font-size: 70px;
-                font-family: ${(props) => props.theme.headers.h1.font};
+                font-family: ${(props) => props.theme.headers?.h1?.font};
                 &--span {
                     margin-left: 10px;
                     color: #f9253c;

@@ -3,7 +3,7 @@ import Home from "./Home";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
-import { socketMiddleware } from "./../store/middleware";
+import { socketMiddleware } from "../../store/middleware";
 import userEvent from "@testing-library/user-event";
 
 const middlewares = [socketMiddleware, thunk];
@@ -56,7 +56,6 @@ describe("Home", () => {
     test("avatar sould be initially not empty", () => {
         const avatarExist = screen.getByRole("img", { name: "Avatar" });
         expect(avatarExist).toBeInTheDocument();
-        // screen.getByRole("");
     });
     test("change avatar", () => {
         const avatar = screen.getByRole("img", { name: "Avatar" });

@@ -54,7 +54,6 @@ const Home = () => {
     const { player } = useSelector((state) => state);
     useEffect(() => {
         if (player.error) toast(player.error);
-        console.log(player);
     }, [player]);
     return (
         <StyledContainer>

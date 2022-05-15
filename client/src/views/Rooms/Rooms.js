@@ -17,17 +17,24 @@ import Loader from "../../components/Loader";
 
 import { Badge } from "antd";
 
-const RoomCard = ({ room, joinRoom }) => {
+export const RoomCard = ({ room, joinRoom }) => {
     return (
         <div style={{ margin: "20px" }}>
             <Badge.Ribbon text={room.mode} color="red">
-                <StyledRoomCard onClick={() => joinRoom(room.name)}>
+                <StyledRoomCard
+                    role="click"
+                    onClick={() => joinRoom(room.name)}
+                >
                     <div className="name">
-                        {room.name} <AiOutlineUser style={{ width: "20px" }} />{" "}
-                        {room.playersIn}/{room.maxPlayers}
+                        <p role="name">{room.name} </p>
+                        <AiOutlineUser
+                            role="svg"
+                            style={{ width: "20px" }}
+                        />{" "}
+                        <p role="playersIn">{room.playersIn}</p>/
+                        <p role="maxPlayers">{room.maxPlayers}</p>
                     </div>
                     <div className="cover"></div>
-                    <div className="status">status</div>
                 </StyledRoomCard>
             </Badge.Ribbon>
         </div>
@@ -64,9 +71,9 @@ const Rooms = () => {
             else dispatch(joinRoomRequest(data));
         }
     };
-    useEffect(() => {
-        console.log(rooms);
-    }, [rooms]);
+    // useEffect(() => {
+    //     console.log(rooms);
+    // }, [rooms]);
 
     useEffect(() => {
         dispatch(getRoomsRequest());

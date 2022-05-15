@@ -50,13 +50,13 @@ export const socketMiddleware = (store) => {
         }
         if (Connected) {
             if (addPlayerRequest.match(action))
-                socket.emit("addPlayerRequest", action.payload);
-            else if (getRoomsRequest.match(action)) socket.emit("getRooms");
+                socket?.emit("addPlayerRequest", action.payload);
+            else if (getRoomsRequest.match(action)) socket?.emit("getRooms");
             else if (addRoomRequest.match(action))
-                socket.emit("createRoomRequest", action.payload);
+                socket?.emit("createRoomRequest", action.payload);
             //joinning to a room request
             if (joinRoomRequest.match(action)) {
-                socket.emit("join_room", {
+                socket?.emit("join_room", {
                     room: action.payload,
                     username: user.userName,
                 });

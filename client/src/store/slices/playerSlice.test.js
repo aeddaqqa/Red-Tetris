@@ -1,4 +1,9 @@
-import reducer, { addRoomName, addRoomRequest, setAdmin } from "./playerSlice";
+import reducer, {
+    addRoomName,
+    addRoomRequest,
+    joinRoomRequest,
+    setAdmin,
+} from "./playerSlice";
 import {
     addPlayerRequest,
     addPlayerSuccess,
@@ -7,6 +12,7 @@ import {
 
 describe("test connection slice", () => {
     let initialValue = {
+        admin: null,
         userName: null,
         roomName: null,
         avatar: null,
@@ -77,6 +83,22 @@ describe("test connection slice", () => {
             loading: false,
             roomName: "pikala",
             admin: true,
+        });
+    });
+    test("set player", () => {
+        expect(
+            reducer({ ...playerLogged, roomName: "pikala" }, setAdmin(0))
+        ).toEqual({
+            ...playerLogged,
+            loading: false,
+            roomName: "pikala",
+            admin: false,
+        });
+    });
+    test("join room", () => {
+        expect(reducer({ ...playerLogged }, joinRoomRequest(1))).toEqual({
+            ...playerLogged,
+            loading: true,
         });
     });
 });

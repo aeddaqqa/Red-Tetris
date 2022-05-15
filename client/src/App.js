@@ -37,13 +37,15 @@ function App() {
                 firstIndex + 1,
                 hash.indexOf("]", firstIndex)
             );
-            dispatch(
-                addPlayerRequest({
-                    username: username,
-                    avatar: "Rhett_James.png",
-                })
-            );
-            dispatch(addRoomRequest({ room, mode: "solo" }));
+            if (username) {
+                dispatch(
+                    addPlayerRequest({
+                        username: username,
+                        avatar: "Rhett_James.png",
+                    })
+                );
+                if (room) dispatch(addRoomRequest({ room, mode: "solo" }));
+            }
         }
     }, [connected]);
     return (

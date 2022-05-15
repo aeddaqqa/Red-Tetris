@@ -6,7 +6,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:coverage": "CI=true npm test -- --coverage ",
+    "test:coverage": "react-scripts test --env=jsdom --coverage  CI=true",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -26,5 +26,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "!src/hooks/**",
+      "!src/Components/__snapshots__/**",
+      "!src/store/middleware.js",
+      "!src/components/Loader.js",
+      "!src/index.js"
+    ]
   }
+  
 }

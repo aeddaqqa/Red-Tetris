@@ -1,14 +1,11 @@
 import styled from "styled-components";
 export const StyledRoomCard = styled.div`
-    background-color: ${(props) => props.theme.background.secondary};
+    background-color: ${(props) => props?.theme?.background?.secondary};
     width: 250px;
     height: auto;
     border-radius: 15px;
     overflow: hidden;
-    // position : relative;
-    // position: relative;
     .name {
-        /* color: ${(props) => props.theme.headers.h1.color}; */
         display: flex;
         align-items: center;
         color: white;
@@ -18,13 +15,10 @@ export const StyledRoomCard = styled.div`
         padding: 1.5rem;
         margin-top: 15px;
         font-size: 1rem;
-        /* font-weight: bold; */
         text-align: center;
         border-bottom: 1px solid white;
     }
     .players {
-        // width: 100%;
-        // padding: 1rem;
         font-size: 0.8rem;
         text-align: center;
         border-bottom: 1px solid white;
@@ -33,7 +27,7 @@ export const StyledRoomCard = styled.div`
     .cover {
         width: 100%;
         height: 200px;
-        background-color: ${(props) => props.theme.background.primary};
+        background-color: ${(props) => props.theme?.background?.primary};
         background-image: url("https://images.unsplash.com/photo-1634295912158-9c847b6b3a40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGV0cmlzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60");
         background-size: cover;
         background-position: center;
@@ -64,10 +58,10 @@ export const StyledContainer = styled.div`
         width: 100%;
         text-align: center;
         font-size: 6em;
-        font-family: ${(props) => props.theme.headers.h1.font};
-        font-weight: ${(props) => props.theme.headers.h1.fontWeight};
-        letter-spacing: ${(props) => props.theme.headers.h1.letterSpacing};
-        color: ${(props) => props.theme.headers.h1.color};
+        font-family: ${(props) => props.theme?.headers?.h1?.font};
+        font-weight: ${(props) => props.theme?.headers?.h1?.fontWeight};
+        letter-spacing: ${(props) => props.theme?.headers?.h1?.letterSpacing};
+        color: ${(props) => props.theme?.headers?.h1?.color};
     }
     .create {
         display: flex;
@@ -102,11 +96,11 @@ export const StyledContainer = styled.div`
             border-radius: 2px;
             background-color: white;
             font-size: 0.8rem;
-            font-family: ${(props) => props.theme.message.font};
-            letter-spacing: ${(props) => props.theme.message.letterSpacing};
-            color: ${(props) => props.theme.message.color};
-            background: ${(props) => props.theme.message.background};
-            border: 1px solid ${(props) => props.theme.border.avatar};
+            font-family: ${(props) => props.theme?.message?.font};
+            letter-spacing: ${(props) => props.theme?.message?.letterSpacing};
+            color: ${(props) => props.theme?.message?.color};
+            background: ${(props) => props.theme?.message?.background};
+            border: 1px solid ${(props) => props.theme?.border?.avatar};
             outline: none;
             &:focus {
                 outline: none;
@@ -153,7 +147,6 @@ export const JoinRoom = styled.div`
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        // background-color: yellow;
         svg {
             width: 100%;
             height: 100%;
