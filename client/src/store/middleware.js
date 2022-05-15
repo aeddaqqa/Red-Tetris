@@ -9,6 +9,7 @@ import {
     addRoomRequest,
     joinRoomRequest,
     addToChat,
+    startTheGameRequest,
 } from "./slices/playerSlice";
 import { updatePlayers } from "./slices/playersSlice";
 import {
@@ -70,6 +71,10 @@ export const socketMiddleware = (store) => {
                     room: action.payload,
                     username: user.userName,
                 });
+            }
+            //adding the room with check if its duplicated
+            if (startTheGameRequest.match(action)) {
+                socket.emit("startgame", action.payload);
             }
         }
         next(action);

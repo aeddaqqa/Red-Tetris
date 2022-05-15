@@ -4,6 +4,9 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 
+const Tetrimios = require("./classes/tetrominos");
+let tetrominos = new Tetrimios();
+
 let rooms = [];
 let players = [];
 var allClients = [];
@@ -129,6 +132,19 @@ io.on("connection", (socket) => {
             }
         }
         io.to(data).emit("updatePlayers", roomPlayers);
+    });
+    /*-------------START THE GAME-------------*/
+    socket.on("startgame", (data) => {
+        const room = rooms.find((room) => room.name === data);
+        game.getUser(io, socket.id, room, players).then(async (user) => {
+            if (user.admin) {
+                const tetros = await tetrominos.getTetriminos();
+                game.startGame(io, room, tetros);
+                io.emit("update_rooms", { rooms: rooms });
+            } else {
+                io.to(socket.id).emit("wait_for_admin");
+            }
+        });
     });
 
     /*-------------DISCONNECT SOCKET-------------*/
