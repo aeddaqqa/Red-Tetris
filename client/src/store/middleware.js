@@ -10,6 +10,14 @@ import {
     joinRoomRequest,
     addToChat,
     startTheGameRequest,
+    setAdminError,
+    sendMessage,
+    newTetrosRequest,
+    sendStage,
+    addWallRequest,
+    startTheGame,
+    concatTetros,
+    setStage,
 } from "./slices/playerSlice";
 import { updatePlayers } from "./slices/playersSlice";
 import {
@@ -55,8 +63,23 @@ export const socketMiddleware = (store) => {
                 store.dispatch(updatePlayers(data));
             });
             socket.on("chat", (data) => {
-                //console.log("emited from back data",data);
                 store.dispatch(addToChat(data));
+            });
+            socket.on("waitForAdmin", () => {
+                store.dispatch(setAdminError());
+            });
+            socket.on("startGame", (data) => {
+                store.dispatch(startTheGame(data));
+            });
+            socket.on("newTetriminos", (data) => {
+                console.log("new tetros", data);
+                store.dispatch(concatTetros(data));
+            });
+            socket.on("getstages", (data) => {
+                store.dispatch(setStage(data));
+            });
+            socket.on("addWall", (data) => {
+                console.log("recieve emit to add wall");
             });
         }
         if (Connected) {
@@ -75,6 +98,32 @@ export const socketMiddleware = (store) => {
             //adding the room with check if its duplicated
             if (startTheGameRequest.match(action)) {
                 socket.emit("startgame", action.payload);
+            }
+
+            //sending message to room
+            if (sendMessage.match(action)) {
+                socket.emit("sendMessage", {
+                    message: action.payload,
+                    username: user.userName,
+                    room: user.roomName,
+                });
+            }
+            if (newTetrosRequest.match(action)) {
+                console.log(action.payload);
+                socket.emit("newTetriminos", action.payload);
+            }
+            //send stage
+            if (sendStage.match(action)) {
+                socket.emit("sendStage", {
+                    stage: action.payload,
+                    username: user.userName,
+                    room: user.roomName,
+                });
+            }
+            //send stage
+            if (addWallRequest.match(action)) {
+                console.log("jksnjsbvjksv");
+                // socket.emit("addWall", {username: user.userName, room: user.roomName })
             }
         }
         next(action);

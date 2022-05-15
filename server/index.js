@@ -3,6 +3,7 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
+const Game = require("./classes/Game");
 
 const Tetrimios = require("./classes/tetrominos");
 let tetrominos = new Tetrimios();
@@ -10,6 +11,7 @@ let tetrominos = new Tetrimios();
 let rooms = [];
 let players = [];
 var allClients = [];
+let game = new Game();
 
 const server = http.createServer(app);
 
@@ -140,13 +142,38 @@ io.on("connection", (socket) => {
             if (user.admin) {
                 const tetros = await tetrominos.getTetriminos();
                 game.startGame(io, room, tetros);
-                io.emit("update_rooms", { rooms: rooms });
+                io.emit("updateRooms", { rooms: rooms });
             } else {
-                io.to(socket.id).emit("wait_for_admin");
+                io.to(socket.id).emit("waitForAdmin");
             }
         });
     });
+    /*-------------SEND MESSAGE-------------*/
+    socket.on("sendMessage", (data) => {
+        const player = players.find(
+            (player) => player.username === data.username
+        );
 
+        io.to(data.room).emit("chat", {
+            sender: player,
+            message: data.message,
+            type: "message",
+        });
+    });
+    /*-------------NEW TETROS-------------*/
+    socket.on("newTetriminos", async (data) => {
+        const tetriminos = await tetrominos.getTetriminos();
+        game.newTetriminos(io, data, tetriminos);
+    });
+    /*-------------ADD STAGE-------------*/
+    socket.on("sendStage", async (data) => {
+        // console.log(data);
+        const player = players.find((p) => p.username === data.username);
+        // console.log(player);
+        if (player && player.room === data.room) {
+            game.sendStage(io, data.room, data.stage, data.username);
+        }
+    });
     /*-------------DISCONNECT SOCKET-------------*/
     socket.on("disconnect", () => {
         var i = allClients.indexOf(socket);
