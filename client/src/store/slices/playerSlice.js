@@ -10,7 +10,13 @@ export const playerSlice = createSlice({
         roomError: null,
         loading: false,
         chat: [],
+        stages: [],
         admin: null,
+        adminError: null,
+        gameEnd: null,
+        gameOver: null,
+        tetros: [],
+        wall: false,
     },
     reducers: {
         addPlayerRequest(state) {
@@ -39,6 +45,24 @@ export const playerSlice = createSlice({
         joinRoomRequest: (state, action) => {
             state.loading = true;
         },
+        sendMessage: (state) => {
+            state.chat = [...state.chat];
+        },
+        ShiftTetros: (state) => {
+            state.tetros.shift();
+        },
+        addWallRequest: (action) => {},
+        sendStage: (action) => {},
+        newTetrosRequest: (state) => {},
+        startTheGameRequest: (state) => {
+            state.gameEnd = null;
+            state.gameOver = null;
+            state.adminError = null;
+            state.tetros = [];
+        },
+        addToChat: (state, action) => {
+            state.chat = [...state.chat, action.payload];
+        },
     },
 });
 
@@ -51,6 +75,13 @@ export const {
     addRoomName,
     setAdmin,
     joinRoomRequest,
+    sendMessage,
+    ShiftTetros,
+    addWallRequest,
+    sendStage,
+    newTetrosRequest,
+    startTheGameRequest,
+    addToChat,
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

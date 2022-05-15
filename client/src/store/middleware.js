@@ -8,7 +8,9 @@ import {
     setAdmin,
     addRoomRequest,
     joinRoomRequest,
+    addToChat,
 } from "./slices/playerSlice";
+import { updatePlayers } from "./slices/playersSlice";
 import {
     updateRooms,
     getRoomsRequest,
@@ -41,11 +43,19 @@ export const socketMiddleware = (store) => {
             socket.on("createRoomSucces", (data) => {
                 store.dispatch(addRoomName(data));
                 store.dispatch(setAdmin(1));
+                socket.emit("getPlayers", data);
             });
             socket.on("roomJoinedSuccess", (data) => {
                 store.dispatch(addRoomName(data));
                 store.dispatch(setAdmin(0));
-                // socket.emit("getPlayers", data);
+                socket.emit("getPlayers", data);
+            });
+            socket.on("updatePlayers", (data) => {
+                store.dispatch(updatePlayers(data));
+            });
+            socket.on("chat", (data) => {
+                //console.log("emited from back data",data);
+                store.dispatch(addToChat(data));
             });
         }
         if (Connected) {
@@ -56,7 +66,7 @@ export const socketMiddleware = (store) => {
                 socket?.emit("createRoomRequest", action.payload);
             //joinning to a room request
             if (joinRoomRequest.match(action)) {
-                socket?.emit("join_room", {
+                socket?.emit("joinRoom", {
                     room: action.payload,
                     username: user.userName,
                 });

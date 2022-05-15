@@ -8,6 +8,7 @@ import Navbar from "./components/NavBar/NavBar";
 import Rooms from "./views/Rooms/Rooms";
 import { addPlayerRequest, addRoomRequest } from "./store/slices/playerSlice";
 import { startConnecting } from "./store/slices/connectionSlice";
+import Game from "./views/Game/Game";
 
 const StyledApp = styled.div`
     width: 100vw;
@@ -56,7 +57,7 @@ function App() {
                 ) : (
                     <>
                         <Navbar user={player} />
-                        {!player.roomName ? <Rooms /> : <div>game</div>}
+                        {!player.roomName ? <Rooms /> : <Game />}
                     </>
                 )}
             </StyledApp>

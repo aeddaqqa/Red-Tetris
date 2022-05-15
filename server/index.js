@@ -90,7 +90,7 @@ io.on("connection", (socket) => {
         }
     });
     /*-------------JOIN ROOM-------------*/
-    socket.on("join_room", (data) => {
+    socket.on("joinRoom", (data) => {
         const joinedRoom = rooms.find((room) => room.name === data.room);
         const player = players.find(
             (player) => player.username === data.username
@@ -102,23 +102,35 @@ io.on("connection", (socket) => {
                 player.admin = false;
                 joinedRoom.playersIn += 1;
                 socket.emit("roomJoinedSuccess", data.room);
-                // io.to(data.room).emit("chat", {
-                //     message: `Player ${data.username} joined the room ${data.room}`,
-                //     type: "join",
-                // });
+                io.to(data.room).emit("chat", {
+                    message: `Player ${data.username} joined the room ${data.room}`,
+                    type: "join",
+                });
                 io.emit("updateRooms", { rooms: rooms });
             }
         }
-        // } else if (data.hash && data.room) {
-        //     socket.join(data.room);
-        //     socket.emit("room_created", data.room);
-        //     io.to(data.room).emit("chat", {
-        //         message: `Player ${data.username} created the room ${data.room}`,
-        //         type: "join",
-        //     });
-        //     io.emit("update_rooms", { rooms: rooms });
-        // }
     });
+
+    /*-------------GET PLAYERS-------------*/
+    socket.on("getPlayers", (data) => {
+        var temp = [];
+        var roomPlayers = [];
+        const clients = io.sockets.adapter.rooms.get(data);
+        if (clients) {
+            for (const clientId of clients) {
+                temp.push(clientId);
+            }
+        }
+        for (let i = 0; i < players.length; i++) {
+            for (let j = 0; j < temp.length; j++) {
+                if (players[i].socketId === temp[j]) {
+                    roomPlayers.push(players[i]);
+                }
+            }
+        }
+        io.to(data).emit("updatePlayers", roomPlayers);
+    });
+
     /*-------------DISCONNECT SOCKET-------------*/
     socket.on("disconnect", () => {
         var i = allClients.indexOf(socket);
