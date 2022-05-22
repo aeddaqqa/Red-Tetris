@@ -9,10 +9,13 @@ export const playersSlice = createSlice({
         updatePlayers: (state, action) => {
             state.players = action.payload;
         },
+        GameFinishedPlayers: (state, action) => {
+            state.players = [];
+        }
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { updatePlayers } = playersSlice.actions;
+export const { updatePlayers, GameFinishedPlayers } = playersSlice.actions;
 
 export default playersSlice.reducer;

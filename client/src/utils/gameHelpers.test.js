@@ -14,7 +14,7 @@ test("Test Collision TRUE", () => {
         ],
         collided: false,
     };
-    expect(checkCollision(player, stage, { x: 1, y: 0 })).toBeFalsy();
+    expect(checkCollision(player, stage, { x: 1, y: 0 })).toBeTruthy();
 });
 test("Test Collision False", () => {
     let player = {

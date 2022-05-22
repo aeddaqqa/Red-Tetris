@@ -16,7 +16,7 @@ const StyledNextCell = styled.div`
 const Cell = ({ type }) => (
     <StyledNextCell
         type={type}
-        color={NEXT_TETROMINOS[type].color}
+        color={NEXT_TETROMINOS[type]?.color}
     ></StyledNextCell>
 );
 

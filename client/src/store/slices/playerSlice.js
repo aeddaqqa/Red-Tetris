@@ -48,23 +48,14 @@ export const playerSlice = createSlice({
         sendMessage: (state) => {
             state.chat = [...state.chat];
         },
-        ShiftTetros: (state) => {
-            state.tetros.shift();
+        addToChat: (state, action) => {
+            state.chat = [...state.chat, action.payload];
         },
-        addWallRequest: (action) => {},
-        sendStage: (action) => {},
-        newTetrosRequest: (state) => {},
         startTheGameRequest: (state) => {
             state.gameEnd = null;
             state.gameOver = null;
             state.adminError = null;
             state.tetros = [];
-        },
-        addToChat: (state, action) => {
-            state.chat = [...state.chat, action.payload];
-        },
-        setAdminError: (state, action) => {
-            state.adminError = true;
         },
         startTheGame: (state, action) => {
             state.gameEnd = false;
@@ -72,11 +63,19 @@ export const playerSlice = createSlice({
             state.tetros = action.payload;
             state.adminError = null;
         },
+        setAdminError: (state, action) => {
+            state.adminError = true;
+        },
+        ShiftTetros: (state, action) => {
+            state.tetros.shift();
+        },
+        newTetrosRequest: (state) => { },
         concatTetros: (state, action) => {
-            console.log(action.payload);
             let newTetros = [];
             state.tetros = newTetros.concat(state.tetros, action.payload);
+            // state.tetros.concat(state.tetros, action.payload);
         },
+        sendStage: (action) => { },
         setStage: (state, action) => {
             // console.log("in adding action",action.payload)
             if (!state.stages.length) {
@@ -91,6 +90,20 @@ export const playerSlice = createSlice({
                     // socket.emit("checkStages", { Stages, stage, room: roomname });
                 }
             }
+        },
+        addWallRequest: (action) => { },
+        AddWall: (state, action) => {
+            console.log("hhhhhhhhhh", action.payload)
+            state.wall = action.payload.wall;
+
+        },
+        gameOverAction: (state, action) => {
+            state.gameOver = true
+        },
+        GameFinishedPlayer: (state, action) => {
+            state.gameEnd = true;
+            state.wall = false;
+            state.tetros= [];
         },
     },
 });
@@ -115,6 +128,10 @@ export const {
     startTheGame,
     concatTetros,
     setStage,
+    AddWall,
+    gameOverRequ,
+    gameOverAction,
+    GameFinishedPlayer
 } = playerSlice.actions;
 
 export default playerSlice.reducer;

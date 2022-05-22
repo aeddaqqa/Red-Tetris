@@ -77,6 +77,9 @@ export const TETROMINOS = {
     ZS: {
         color: "227, 78, 78, 0.3",
     },
+    Wall: {
+        color: "72, 72, 72,0.8",
+      },
 };
 
 export const NEXT_TETROMINOS = {
@@ -145,40 +148,4 @@ export const NEXT_TETROMINOS = {
         ],
         color: "227, 78, 78",
     },
-};
-
-// Generate random tetrimino
-export const randomTetromino = () => {
-    const tetrominos = "IJLOSTZ";
-    const randTetromino =
-        tetrominos[Math.floor(Math.random() * tetrominos.length)];
-    return TETROMINOS[randTetromino];
-};
-
-export const randomTetromino1 = () => {
-    let randomTetrimino = Math.floor(Math.random() * 7);
-    switch (randomTetrimino) {
-        case 0:
-            return "I";
-        case 1:
-            return "J";
-        case 2:
-            return "L";
-        case 3:
-            return "O";
-        case 4:
-            return "S";
-        case 5:
-            return "T";
-        case 6:
-            return "Z";
-    }
-};
-
-export const getTetrominos = () => {
-    let tetriminos = [];
-    for (let i = 0; i < 20; i++) {
-        tetriminos.push(randomTetromino1());
-    }
-    return tetriminos;
 };

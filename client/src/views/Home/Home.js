@@ -47,9 +47,6 @@ const Home = () => {
         if (Id < 9) setAvatar(Avatars[Id + 1]);
         else if (Id === 9) setAvatar(Avatars[0]);
     };
-    // useEffect(() => {
-    //     dispatch(startConnecting());
-    // }, []);
 
     const { player } = useSelector((state) => state);
     useEffect(() => {
@@ -92,20 +89,16 @@ const Home = () => {
                     </span>
                     <input
                         className={
-                            "input mx-auto animate-fade appearance-none block bg-transparent rounded py-4 px-4 mb-3 leading-tight focus:outline-none"
+                            "input mx-auto bg-transparent rounded py-4 px-4 mb-3 focus:outline-none"
                         }
                         type="text"
-                        mame="playername"
                         placeholder="Username"
                         value={userName}
                         onChange={(e) => {
+                            //console.log("changed");
                             setUserName(e.target.value);
                         }}
-                        style={{
-                            fontFamily: "Pixel",
-                            border: "1px solid #f9253c",
-                            color: "whitesmoke",
-                        }}
+                        style={{ fontFamily: "Pixel", border: "1px solid #f9253c", color: "whitesmoke" }}
                     />
                     <StyledStartButton1>play</StyledStartButton1>
                     {errorUsername && (

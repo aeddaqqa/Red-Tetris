@@ -33,7 +33,8 @@
       "!src/components/**/__snapshots__/**",
       "!src/store/middleware.js",
       "!src/components/Loader.js",
-      "!src/index.js"
+      "!src/index.js",
+      "!src/views/Game/Game.js"
     ]
   }
   

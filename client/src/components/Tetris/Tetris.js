@@ -24,9 +24,10 @@ const Tetris = ({
     setStart,
     UserPlayer,
 }) => {
+    // console.log("gameOver",gameOver, "board",start);
     return (
         <Styled onKeyDown={(e) => move(e)} onKeyUp={keyUp}>
-            {!start ? (
+            {start ? (
                 <GameOver
                     UserPlayer={UserPlayer}
                     gameOver={gameOver}

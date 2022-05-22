@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import Stage from "../Tetris/Stage";
 import NextCell from "./NextCell";
@@ -6,7 +7,7 @@ const StyledInfo = styled.div`
     width: 100%;
     height: 100%;
     padding: 1.5rem;
-    background-color: ${(props) => props.theme.background.secondary};
+    background-color: ${(props) => props.theme?.background?.secondary};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,28 +18,20 @@ const NextTetromino = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    // background-color: blue;
     h1 {
         width: 100%;
         text-align: center;
-        font-size: ${(props) => props.theme.headers.h1.fontSize};
-        padding: ${(props) => props.theme.headers.h1.padding};
-        font-family: ${(props) => props.theme.headers.h1.font};
-        font-weight: ${(props) => props.theme.headers.h1.fontWeight};
-        letter-spacing: ${(props) => props.theme.headers.h1.letterSpacing};
-        color: ${(props) => props.theme.headers.h1.color};
+        font-size: ${(props) => props.theme?.headers?.h1?.fontSize};
+        padding: ${(props) => props.theme?.headers?.h1?.padding};
+        font-family: ${(props) => props.theme?.headers?.h1?.font};
+        font-weight: ${(props) => props.theme?.headers?.h1?.fontWeight};
+        letter-spacing: ${(props) => props.theme?.headers?.h1?.letterSpacing};
+        color: ${(props) => props.theme?.headers?.h1?.color};
     }
     .content {
         flex: 1;
-        /* background-color: white; */
-        /* border: 1px solid ${(props) => props.theme.border.avatar};
-     */
         position: relative;
         .background {
-            // position: absolute;
-            // top: 0;
-            // left: 0;
-            // background-color: yellow;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -56,17 +49,16 @@ const GameDetails = styled.div`
     flex: 2;
     display: flex;
     flex-direction: column;
-    // background-color: blue;
     height: 100%;
     h1 {
         width: 100%;
         text-align: center;
-        font-size: ${(props) => props.theme.headers.h1.fontSize};
-        padding: ${(props) => props.theme.headers.h1.padding};
-        font-family: ${(props) => props.theme.headers.h1.font};
-        font-weight: ${(props) => props.theme.headers.h1.fontWeight};
-        letter-spacing: ${(props) => props.theme.headers.h1.letterSpacing};
-        color: ${(props) => props.theme.headers.h1.color};
+        font-size: ${(props) => props.theme?.headers?.h1?.fontSize};
+        padding: ${(props) => props.theme?.headers?.h1?.padding};
+        font-family: ${(props) => props.theme?.headers?.h1?.font};
+        font-weight: ${(props) => props.theme?.headers?.h1?.fontWeight};
+        letter-spacing: ${(props) => props.theme?.headers?.h1?.letterSpacing};
+        color: ${(props) => props.theme?.headers?.h1?.color};
     }
     .content {
         flex: 1;
@@ -85,16 +77,15 @@ const GameDetails = styled.div`
         text-align: center;
         font-size: 1rem;
         font-family: Pixel, Arial, Helvetica, sans-serif;
-        font-weight: ${(props) => props.theme.message.fontWeight};
-        letter-spacing: ${(props) => props.theme.message.letterSpacing};
-        color: ${(props) => props.theme.message.color};
+        font-weight: ${(props) => props.theme?.message?.fontWeight};
+        letter-spacing: ${(props) => props.theme?.message?.letterSpacing};
+        color: ${(props) => props.theme?.message?.color};
         padding: 0.5rem;
     }
 `;
 
 export const StyledNext = styled.div`
     display: grid;
-    // background-color: green;
     grid-template-columns: repeat(${(props) => props.width}, 48px);
     grid-template-rows: repeat(
         ${(props) => props.height},
@@ -105,11 +96,12 @@ export const StyledNext = styled.div`
 `;
 
 const Info = ({ score, level, rows, nextStage }) => {
+    useEffect(() => {
+        console.log(score, level, rows, nextStage);
+    }, []);
     return (
         <StyledInfo>
-            {/* <div style={{ margin: "5px" }}> */}
             <GameDetails>
-                {/* <h1>Details</h1> */}
                 <div className="content">
                     <p>rows : {rows}</p>
                     <p>level : {level}</p>
@@ -117,10 +109,7 @@ const Info = ({ score, level, rows, nextStage }) => {
                 </div>
             </GameDetails>
             <NextTetromino>
-                {/* sljfnadjkgmadg */}
-                {/* <h1>Next</h1> */}
                 <div className="content">
-                    {/* <div className="tetromino"></div> */}
                     <div className="background">
                         <StyledNext
                             width={nextStage[0].length}
@@ -135,7 +124,6 @@ const Info = ({ score, level, rows, nextStage }) => {
                     </div>
                 </div>
             </NextTetromino>
-            {/* </div> */}
         </StyledInfo>
     );
 };

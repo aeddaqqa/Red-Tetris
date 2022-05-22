@@ -91,99 +91,62 @@ const Rooms = () => {
                 className="rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700 xl:w-2/3 w-11/12 lg:w-3/4"
                 style={{ backgroundColor: "#333333" }}
             >
-                <div className="create">
-                    <div className="title">create room</div>
-                    <div className="w-full mt-4 flex flex-col sm:flex-row justify-center align-center md:h-12 md:w-4/12">
-                        <input
-                            className={
-                                "input mx-auto bg-transparent rounded py-4 px-4 mb-3 h-full focus:outline-none"
-                            }
-                            type="text"
-                            placeholder="Room name"
-                            style={{
-                                fontFamily: "Pixel",
-                                border: "1px solid #f9253c",
-                                color: "whitesmoke",
-                                backgroundColor: "#212121",
-                            }}
-                            onChange={(e) => {
-                                setRoom(e.target.value);
-                            }}
-                        />
-                        <div className="h-12 w-full my-2 mx-0 md:mx-6 xl:my-0">
-                            <button
-                                style={{
-                                    fontFamily: "Pixel",
-                                    border: "1px solid #f9253c",
-                                    color: "whitesmoke",
-                                    backgroundColor: "#212121",
-                                }}
-                                type="button"
-                                className="flex h-full w-full text-left items-center justify-between rounded-md"
-                                onClick={() => setActive(!active)}
-                            >
-                                <span className="flex items-center px-4 ">
-                                    <span
-                                        style={{
-                                            color:
-                                                mode === "Mode"
-                                                    ? "#9BA3AF"
-                                                    : "whitesmoke",
-                                        }}
-                                        className="w-12"
-                                    >
-                                        {mode}
-                                    </span>
-                                </span>
-                                <svg
-                                    className="h-6 w-6 mr-2"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    style={{ color: "#f9253c" }}
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            </button>
-                            <ul
-                                className={
-                                    active
-                                        ? "relative z-10 mt-1 w-full shadow-lg rounded-md overflow-hidden"
-                                        : "hidden"
-                                }
-                                style={{
-                                    fontFamily: "Pixel",
-                                    backgroundColor: "#212121",
-                                    border: "1px solid #f9253c",
-                                }}
-                            >
-                                <li
-                                    className="lista text-white relative  py-2 pl-1 pr-2 border-b border-gray-600"
-                                    onClick={() => handleModeChange("solo")}
-                                >
-                                    <span className="font-normal ml-3">
-                                        solo
-                                    </span>
-                                </li>
-                                <li
-                                    className="lista text-white relative  py-2 pl-1 pr-2"
-                                    onClick={() => handleModeChange("battle")}
-                                >
-                                    <span className="font-normal ml-3">
-                                        battle
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="h-12 my-2 w-full  xl:m-0">
-                            <StartButton mode={mode} createRoom={createRoom} />
-                        </div>
-                    </div>
-                </div>
+        <div className="create">
+          <div className="title">create room</div>
+          <div className="w-full mt-4 flex flex-col sm:flex-row justify-center align-center md:h-12 md:w-4/12">
+            <input
+              className={
+                "input rounded px-4 focus:outline-none"
+              }
+              type="text"
+              placeholder="Room name"
+              style={{ fontFamily: "Pixel", border: "1px solid #f9253c", color: "whitesmoke", backgroundColor: "#212121" }}
+              onChange={(e) => {
+                setRoom(e.target.value);
+              }}
+            />
+            <div className="h-12 mx-auto w-full mx-0 md:mx-6 xl:my-0">
+              <button
+                style={{ fontFamily: "Pixel", border: "1px solid #f9253c", color: "whitesmoke", backgroundColor: "#212121" }}
+                type="button"
+                className="flex h-full w-full text-left items-center justify-between rounded-md"
+                onClick={() => setActive(!active)}
+              >
+                <span className="flex items-center px-4 ">
+                  <span style={{ color: mode === "Mode" ? "#9BA3AF" : "whitesmoke" }} className="w-12">{mode}</span>
+                </span>
+                <svg
+                  className="h-6 w-6 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{ color: "#f9253c" }}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <ul
+                className={active ? 'relative z-10 mt-1 w-full shadow-lg rounded-md overflow-hidden' : 'hidden'}
+                style={{ fontFamily: "Pixel", backgroundColor: "#212121", border: "1px solid #f9253c" }}
+              >
+                <li className="lista text-white relative  py-2 pl-1 pr-2 border-b border-gray-600" onClick={() => handleModeChange("solo")} >
+                  <span className="font-normal ml-3">solo</span>
+                </li>
+                <li className="lista text-white relative  py-2 pl-1 pr-2" onClick={() => handleModeChange("battle")}>
+                  <span className="font-normal ml-3">battle</span>
+                </li>
+              </ul>
+            </div>
+            <div className="h-12 w-full  xl:m-0">
+
+              <StartButton mode={mode} createRoom={createRoom} />
+            </div>
+          </div>
+        </div>
                 <div className="flex justify-center align-center pb-4">
                     <span
                         style={{

@@ -17,8 +17,6 @@ const StyledApp = styled.div`
     background-color: ${(props) => props.theme.background.primary};
 `;
 
-const Router = ({ player }) => {};
-
 function App() {
     const { player } = useSelector((state) => state);
     const {

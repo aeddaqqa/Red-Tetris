@@ -70,7 +70,7 @@ export const StyledOverlayText = styled.div`
     }
 `;
 
-export default function GameOver({ gameOver, start, setStart, UserPlayer }) {
+export default function GameOver({ gameOver, start, UserPlayer }) {
     return (
         <StyledOverlay>
             <StyledOverlayText>
@@ -97,12 +97,13 @@ export default function GameOver({ gameOver, start, setStart, UserPlayer }) {
                     ""
                 )}
                 {/* {!start ? */}
-                {!start && !gameOver ? (
+                {start && !gameOver ? (
                     <div className="overlay-content">
                         <div className="my-4 flex flex-row justify-between">
                             <kbd
                                 style={{
-                                    fontSize: "1.7vh",
+                                    fontSize: "1rem",
+                                    height: "2rem",
                                     borderRadius: "5px",
                                     border: "2px solid white",
                                     paddingInline: "5px",
@@ -115,7 +116,8 @@ export default function GameOver({ gameOver, start, setStart, UserPlayer }) {
                         <div className="my-4 flex flex-row justify-between">
                             <kbd
                                 style={{
-                                    fontSize: "1.7vh",
+                                    fontSize: "1rem",
+                                    height: "2rem",
                                     borderRadius: "5px",
                                     border: "2px solid white",
                                     paddingInline: "5px",
@@ -128,7 +130,8 @@ export default function GameOver({ gameOver, start, setStart, UserPlayer }) {
                         <div className="my-4 flex flex-row justify-between">
                             <kbd
                                 style={{
-                                    fontSize: "1.7vh",
+                                    fontSize: "1rem",
+                                    height: "2rem",
                                     borderRadius: "5px",
                                     border: "2px solid white",
                                     paddingInline: "5px",
@@ -141,7 +144,8 @@ export default function GameOver({ gameOver, start, setStart, UserPlayer }) {
                         <div className="my-4 flex flex-row justify-between">
                             <kbd
                                 style={{
-                                    fontSize: "1.7vh",
+                                    fontSize: "1rem",
+                                    height: "2rem",
                                     borderRadius: "5px",
                                     border: "2px solid white",
                                     paddingInline: "5px",
@@ -154,7 +158,8 @@ export default function GameOver({ gameOver, start, setStart, UserPlayer }) {
                         <div className="my-4 flex flex-row justify-between">
                             <kbd
                                 style={{
-                                    fontSize: "1.7vh",
+                                    fontSize: "1rem",
+                                    height: "2rem",
                                     borderRadius: "5px",
                                     border: "2px solid white",
                                     paddingInline: "5px",

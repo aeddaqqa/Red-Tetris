@@ -29,9 +29,11 @@ io.on("connection", (socket) => {
     console.log("userConnected =>", socket.id);
     /*-------------ADD PLAYER-------------*/
     socket.on("addPlayerRequest", (data) => {
+        // //console.log(data);
         const exist = players.find(
             (player) => player.username === data.username
         );
+        // //console.log(exist);
         if (!exist) {
             players = [
                 ...players,
@@ -40,6 +42,7 @@ io.on("connection", (socket) => {
                     socketId: socket.id,
                     avatar: data.avatar,
                     room: "",
+                    admin: false,
                 },
             ];
             socket.emit("addPlayerSuccess", {
@@ -55,13 +58,15 @@ io.on("connection", (socket) => {
         socket.emit("getRooms", rooms);
     });
     /*-------------ADD ROOM-------------*/
-    socket.on("createRoomRequest", (data) => {
+    socket.on("createRoomRequest", async (data) => {
+        // console.log(data);
         const exist = rooms.find((room) => room.name === data.room);
         const player = players.find(
             (player) =>
                 player.username === data.username &&
                 player.socketId === socket.id
         );
+        // console.log("player before create room", player);
         if (!exist) {
             if (data.mode === "battle")
                 rooms = [
@@ -72,6 +77,7 @@ io.on("connection", (socket) => {
                         maxPlayers: 5,
                         playersIn: 1,
                         state: false,
+                        stages: [],
                     },
                 ];
             else
@@ -83,15 +89,24 @@ io.on("connection", (socket) => {
                         maxPlayers: 1,
                         playersIn: 1,
                         state: false,
+                        stages: [],
                     },
                 ];
             if (player) {
+                // console.log("jlayer");
                 player.room = data?.room;
                 player.admin = true;
             }
+
             socket.join(data.room);
             socket.emit("createRoomSucces", data.room);
+            io.to(data.room).emit("chat", {
+                message: `Player ${data.username} created the room ${data.room}`,
+                type: "join",
+            });
             io.emit("updateRooms", { rooms: rooms });
+        } else {
+            socket.emit("room_exists");
         }
     });
     /*-------------JOIN ROOM-------------*/
@@ -139,6 +154,7 @@ io.on("connection", (socket) => {
     socket.on("startgame", (data) => {
         const room = rooms.find((room) => room.name === data);
         game.getUser(io, socket.id, room, players).then(async (user) => {
+            // console.log("the user is", user);
             if (user.admin) {
                 const tetros = await tetrominos.getTetriminos();
                 game.startGame(io, room, tetros);
@@ -160,12 +176,14 @@ io.on("connection", (socket) => {
             type: "message",
         });
     });
-    /*-------------NEW TETROS-------------*/
+    //new tetros
     socket.on("newTetriminos", async (data) => {
         const tetriminos = await tetrominos.getTetriminos();
+        // console.log(data, tetriminos)
         game.newTetriminos(io, data, tetriminos);
     });
-    /*-------------ADD STAGE-------------*/
+
+    //add stage
     socket.on("sendStage", async (data) => {
         // console.log(data);
         const player = players.find((p) => p.username === data.username);
@@ -174,6 +192,16 @@ io.on("connection", (socket) => {
             game.sendStage(io, data.room, data.stage, data.username);
         }
     });
+
+    socket.on("addWall", async (data) => {
+        // console.log("some data to wall", data);
+        game.addWall(socket, data.room);
+    });
+
+    socket.on("GameOver", async (data) => {
+        console.log("gameOver", data);
+        game.GameOver(io, data, rooms, players);
+      });
     /*-------------DISCONNECT SOCKET-------------*/
     socket.on("disconnect", () => {
         var i = allClients.indexOf(socket);

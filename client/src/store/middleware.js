@@ -18,7 +18,11 @@ import {
     startTheGame,
     concatTetros,
     setStage,
+    AddWall,
+    gameOverAction,
+    GameFinishedPlayer
 } from "./slices/playerSlice";
+import {GameFinishedPlayers} from "./slices/playersSlice"
 import { updatePlayers } from "./slices/playersSlice";
 import {
     updateRooms,
@@ -26,6 +30,16 @@ import {
     getRoomsSuccess,
     getRoomsFailed,
 } from "./slices/roomsSlice";
+
+export const logger = (store) => (next) => (action) => {
+    // console.group(action.type);
+    // //console.log("state : ", store.getState());
+    // console.info("dispatching", action);
+    let result = next(action);
+    // //console.log("next state", store.getState());
+    // console.groupEnd();
+    return result;
+  };
 
 export const socketMiddleware = (store) => {
     let socket = Socket;
@@ -63,6 +77,7 @@ export const socketMiddleware = (store) => {
                 store.dispatch(updatePlayers(data));
             });
             socket.on("chat", (data) => {
+                console.log("chat", data)
                 store.dispatch(addToChat(data));
             });
             socket.on("waitForAdmin", () => {
@@ -79,15 +94,41 @@ export const socketMiddleware = (store) => {
                 store.dispatch(setStage(data));
             });
             socket.on("addWall", (data) => {
-                console.log("recieve emit to add wall");
+                console.log("recieve emit to add wall", data);
+                store.dispatch(AddWall({wall: true}));
             });
+            // GameFinished
+            socket.on("GameFinished", (data) => {
+                store.dispatch(GameFinishedPlayer());
+                store.dispatch(GameFinishedPlayers());
+                console.log("Game FINISHED", data);
+                // store.dispatch(AddWall({wall: true}));
+            });
+            socket.on("emit-disconnect", () => {
+                socket.off("addPlayerSuccess");
+                socket.off("addPlayerFail");
+                socket.off("getRooms");
+                socket.off("updateRooms");
+                socket.off("createRoomSucces");
+                socket.off("roomJoinedSuccess");
+                socket.off("updatePlayers");
+                socket.off("chat");
+                socket.off("waitForAdmin");
+                socket.off("startGame");
+                socket.off("newTetriminos");
+                socket.off("getstages");
+                socket.off("addWall");
+              });
         }
         if (Connected) {
             if (addPlayerRequest.match(action))
                 socket?.emit("addPlayerRequest", action.payload);
             else if (getRoomsRequest.match(action)) socket?.emit("getRooms");
             else if (addRoomRequest.match(action))
-                socket?.emit("createRoomRequest", action.payload);
+                socket?.emit("createRoomRequest", {
+                    ...action.payload,
+                    username: user.userName,
+                });
             //joinning to a room request
             if (joinRoomRequest.match(action)) {
                 socket?.emit("joinRoom", {
@@ -122,8 +163,13 @@ export const socketMiddleware = (store) => {
             }
             //send stage
             if (addWallRequest.match(action)) {
-                console.log("jksnjsbvjksv");
-                // socket.emit("addWall", {username: user.userName, room: user.roomName })
+                // console.log("jksnjsbvjksv");
+                socket.emit("addWall", {username: user.userName, room: user.roomName })
+            }
+            // gameOverAction
+            if (gameOverAction.match(action)) {
+                // console.log("jksnjsbvjksv");
+                socket.emit("GameOver", {userName: user.userName, room: user.roomName })
             }
         }
         next(action);

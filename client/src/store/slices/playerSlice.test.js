@@ -1,8 +1,18 @@
 import reducer, {
     addRoomName,
     addRoomRequest,
+    addToChat,
+    addWallRequest,
+    concatTetros,
     joinRoomRequest,
+    newTetrosRequest,
+    sendMessage,
+    sendStage,
     setAdmin,
+    setStage,
+    ShiftTetros,
+    startTheGame,
+    startTheGameRequest,
 } from "./playerSlice";
 import {
     addPlayerRequest,
@@ -12,7 +22,6 @@ import {
 
 describe("test connection slice", () => {
     let initialValue = {
-        admin: null,
         userName: null,
         roomName: null,
         avatar: null,
@@ -20,6 +29,13 @@ describe("test connection slice", () => {
         roomError: null,
         loading: false,
         chat: [],
+        stages: [],
+        admin: null,
+        adminError: null,
+        gameEnd: null,
+        gameOver: null,
+        tetros: [],
+        wall: false,
     };
     let player = { id: 0, name: "Agoumi", ImagePng: "Agoumi.png" };
     let playerLogged = {
@@ -99,6 +115,84 @@ describe("test connection slice", () => {
         expect(reducer({ ...playerLogged }, joinRoomRequest(1))).toEqual({
             ...playerLogged,
             loading: true,
+        });
+    });
+    test("chat", () => {
+        expect(reducer({ ...playerLogged }, sendMessage())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("shift tetros", () => {
+        expect(reducer({ ...playerLogged }, ShiftTetros())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("add chat", () => {
+        expect(reducer(playerLogged, addToChat("farwila"))).toEqual({
+            ...playerLogged,
+            chat: [...playerLogged.chat, "farwila"],
+        });
+    });
+    test("add wall", () => {
+        expect(reducer({ ...playerLogged }, addWallRequest())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("start the game request", () => {
+        expect(reducer({ ...playerLogged }, startTheGameRequest())).toEqual({
+            ...playerLogged,
+            gameEnd: null,
+            gameOver: null,
+            adminError: null,
+            tetros: [],
+        });
+    });
+    test("start the game", () => {
+        expect(
+            reducer(
+                { ...playerLogged, gameEnd: false, gameOver: false },
+                startTheGame([{ item: "pikala" }])
+            )
+        ).toEqual({
+            ...playerLogged,
+            adminError: null,
+            gameEnd: false,
+            gameOver: false,
+            tetros: [{ item: "pikala" }],
+        });
+    });
+    test("new tetros", () => {
+        expect(reducer({ ...playerLogged }, newTetrosRequest())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("concat tetros", () => {
+        expect(
+            reducer(
+                { ...playerLogged, tetros: [{ item: "pikala" }] },
+                concatTetros([{ item: "farwila" }])
+            )
+        ).toEqual({
+            ...playerLogged,
+            tetros: [{ item: "pikala" }, { item: "farwila" }],
+        });
+    });
+    test("send stage", () => {
+        expect(reducer({ ...playerLogged }, sendStage())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("addWallRequest", () => {
+        expect(reducer({ ...playerLogged }, addWallRequest())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("setStage", () => {
+        expect(
+            reducer({ ...playerLogged }, setStage({ item: "fech" }))
+        ).toEqual({
+            ...playerLogged,
+            stages: [{ item: "fech" }],
         });
     });
 });
