@@ -145,29 +145,16 @@ const Game = () => {
             setGameStart(false);
             setDropTime(null);
         }
-        // }
-        // if (!UserPlayer.gameEnd && tetrominos.length > 0) {
-        //     // console.log("in second if gamefinished useeefect");
-        //     setStage(createStage());
-        //     setNextStage(createStage(4, 4));
-        //     resetPlayer();
-        //     setGameOver(false);
-        //     setScore(0);
-        //     setLevel(0);
-        //     setRows(0);
-        // }
     }, [UserPlayer.gameEnd]);
 
     // Emit the stage
-    // useEffect(() => {
-    //     dispatch(sendStage(stage));
-    // }, [stage]);
+    useEffect(() => {
+        dispatch(sendStage(stage));
+    }, [stage]);
 
     //start the game
     useEffect(() => {
         if (gameStart) {
-            // if (!UserPlayer.admin) dispatch(sendStage(stage));
-            // console.log("staaaaaart")
             if (tetrominos.length > 0) {
                 setStage(createStage());
                 setNextStage(createStage(4, 4));
@@ -176,30 +163,7 @@ const Game = () => {
                 setScore(0);
                 setLevel(0);
                 setRows(0);
-                // setDropTime(1000);
             }
-            // if (gameOver || (UserPlayer.gameEnd && tetrominos.length > 0)) {
-            //     // console.log("game over or ended(tetros in)");
-            //     // Reset everything
-            //     console.log("1")
-            //     setStage(createStage());
-            //     setNextStage(createStage(4, 4));
-            //     resetPlayer();
-            //     setGameOver(false);
-            //     setScore(0);
-            //     setLevel(0);
-            //     setRows(0);
-            //     setDropTime(1000);
-            // }
-            // if (firstDrop === 1) {
-            //     console.log("2")
-            //     resetPlayer();
-            //     setfirstDrop(2);
-            //     setScore(0);
-            //     setLevel(0);
-            //     setRows(0);
-            // }
-            // setStart(false);
             setBoardDisplay(false);
             setGameOver(false);
             setGameStart(false);
@@ -215,8 +179,6 @@ const Game = () => {
     //start the game
     const startgame = (e) => {
         if (e.key === "Enter") {
-            // console.log("Pressing enter");
-            // console.log("room", UserPlayer.roomName)
             if (!getTetrimino) {
                 // console.log("send request")
                 if (UserPlayer.admin) {
