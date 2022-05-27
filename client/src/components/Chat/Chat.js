@@ -85,7 +85,7 @@ const Chat = ({ players, player }) => {
     return (
         <StyledChat>
             <div className="users">
-                {players.map((player, key) => (
+                {players?.map((player, key) => (
                     <div key={key} className="user">
                         <UserCard player={player} />
                     </div>

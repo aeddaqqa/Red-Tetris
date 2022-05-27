@@ -16,6 +16,7 @@ import {
 } from "../../store/slices/playerSlice";
 import { sendStage } from "../../store/slices/playerSlice";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StyledContainer = styled.div`
     /* width: 100%; */
@@ -32,19 +33,19 @@ const StyledContainer = styled.div`
         "otherstage stage msgs"
         "otherstage stage msgs";
     @media (max-width: 1500px) {
-        background-color: blue;
+        // background-color: blue;
         grid-template-columns: 450px 450px 450px !important;
         grid-template-rows: 250px 325px 325px !important;
     }
     @media (max-width: 1300px) {
-        background-color: green;
+        // background-color: green;
         gap: 10px;
         grid-template-columns: 30% 30% 30% !important;
         grid-template-rows: 250px 250px 250px !important;
     }
     @media (max-width: 1000px) {
-        grid-template-columns: 300px 300px !important;
-        grid-template-rows: 400px 600px !important;
+        grid-template-columns: 48% 48% !important;
+        grid-template-rows: 400px 700px !important;
         grid-template-areas:
             "msgs  info"
             "otherstage  stage" !important;
@@ -100,7 +101,7 @@ const Game = () => {
     const [boardDisplay, setBoardDisplay] = useState(true);
     const players = useSelector((state) => state.players.players);
     const UserPlayer = useSelector((state) => state.player);
-    let wall = useSelector((state) => state.player.wall)
+    let wall = useSelector((state) => state.player.wall);
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
     const [getTetrimino, setgetTetrimino] = useState(false);
@@ -133,115 +134,85 @@ const Game = () => {
     const [score, setScore, rows, setRows, level, setLevel] =
         useGameStatus(rowsCleared);
 
-    // Emit the stage
-    useEffect(() => {
-        dispatch(sendStage(stage));
-    }, [stage]);
-
-    const movePlayer = (dir) => {
-        if (!checkCollision(player, stage, { x: dir, y: 0 })) {
-            updatePlayerPos({ x: dir, y: 0 });
-        }
-    };
-
-    const keyUp = ({ keyCode }) => {
-        if (!gameOver) {
-            // Activate the interval again when user releases down arrow.
-            if (keyCode === 40) {
-                setDropTime(1000 / (level + 1));
-            }
-        }
-    };
-
     // Check if the Game finished (Battle mode)
     useEffect(() => {
-        setBoardDisplay(true);
-        setgetTetrimino(false);
-        setGameOver(false);
-        if (!UserPlayer.gameEnd && tetrominos.length > 0) {
-            setStage(createStage());
-            setNextStage(createStage(4, 4));
-            resetPlayer();
+        console.log(gameStart, gameOver);
+        if (UserPlayer.gameEnd) {
+            console.log("in gamefinished useeffect");
+            setBoardDisplay(true);
+            setgetTetrimino(false);
             setGameOver(false);
-            setScore(0);
-            setLevel(0);
-            setRows(0);
+            setGameStart(false);
+            setDropTime(null);
         }
+        // }
+        // if (!UserPlayer.gameEnd && tetrominos.length > 0) {
+        //     // console.log("in second if gamefinished useeefect");
+        //     setStage(createStage());
+        //     setNextStage(createStage(4, 4));
+        //     resetPlayer();
+        //     setGameOver(false);
+        //     setScore(0);
+        //     setLevel(0);
+        //     setRows(0);
+        // }
     }, [UserPlayer.gameEnd]);
 
-    // Get Tetriminos for the second time
-    useEffect(() => {
-        if (concatTetriminos) {
-            dispatch(newTetrosRequest(UserPlayer.roomName));
-            setConcatTetriminos(false);
-        }
-    }, [concatTetriminos]);
-
-    //Emit the stage
+    // Emit the stage
+    // useEffect(() => {
+    //     dispatch(sendStage(stage));
+    // }, [stage]);
 
     //start the game
     useEffect(() => {
         if (gameStart) {
-            if (!UserPlayer.admin) dispatch(sendStage(stage));
+            // if (!UserPlayer.admin) dispatch(sendStage(stage));
             // console.log("staaaaaart")
-            if (gameOver || (UserPlayer.gameEnd && tetrominos.length > 0)) {
-                // console.log("game start hide board");
-                // Reset everything
-                setBoardDisplay(false);
+            if (tetrominos.length > 0) {
                 setStage(createStage());
                 setNextStage(createStage(4, 4));
-                resetPlayer(stage);
+                resetPlayer();
                 setGameOver(false);
                 setScore(0);
                 setLevel(0);
                 setRows(0);
-                setDropTime(1000);
+                // setDropTime(1000);
             }
-            if (firstDrop === 1) {
-                setBoardDisplay(false);
-                resetPlayer(stage);
-                setfirstDrop(2);
-                setScore(0);
-                setLevel(0);
-                setRows(0);
-            }
+            // if (gameOver || (UserPlayer.gameEnd && tetrominos.length > 0)) {
+            //     // console.log("game over or ended(tetros in)");
+            //     // Reset everything
+            //     console.log("1")
+            //     setStage(createStage());
+            //     setNextStage(createStage(4, 4));
+            //     resetPlayer();
+            //     setGameOver(false);
+            //     setScore(0);
+            //     setLevel(0);
+            //     setRows(0);
+            //     setDropTime(1000);
+            // }
+            // if (firstDrop === 1) {
+            //     console.log("2")
+            //     resetPlayer();
+            //     setfirstDrop(2);
+            //     setScore(0);
+            //     setLevel(0);
+            //     setRows(0);
+            // }
             // setStart(false);
+            setBoardDisplay(false);
             setGameOver(false);
             setGameStart(false);
             setDropTime(1000 / (level + 1) + 200);
         }
     }, [gameStart]);
 
-    // get tetros
-    useEffect(() => {
-        // console.log("comp game over",gameOver);
-        // console.log("length",tetrominos.length);
-        // && !UserPlayer.gameOver
-        if (tetrominos.length > 0 && !gameOver) {
-            // console.log("tetros are here")
-            setGameStart(true);
-            // setBoardDisplay(false);
-            setgetTetrimino(true);
-        }
-        return () => { };
-    }, [tetrominos]);
+    // Custom hook by Dan Abramov
+    useInterval(() => {
+        drop();
+    }, dropTime);
 
-    // const startGame = () => {
-    //   if (tetrominos?.length > 0) {
-    //     // Reset everything
-    //     // set
-    //     setStart(true);
-    //     setStage(createStage());
-    //     setNextStage(createStage(4, 4));
-    //     setDropTime(1000);
-    //     resetPlayer();
-    //     setScore(0);
-    //     setLevel(0);
-    //     setRows(0);
-    //     setGameOver(false);
-    //   }
-    // };
-
+    //start the game
     const startgame = (e) => {
         if (e.key === "Enter") {
             // console.log("Pressing enter");
@@ -253,18 +224,49 @@ const Game = () => {
                     dispatch(startTheGameRequest(UserPlayer.roomName));
                 } else toast("Wait for admin to start the Game");
             }
+        }
+    };
 
-            // setTetrominos(getTetrominos());
-            // console.log("tetros are", tetrominos)
-            // startGame();
-            // socket.emit("startgame", { room: props.data.roomName });
+    // get tetros
+    useEffect(() => {
+        if (tetrominos.length > 0 && !UserPlayer.gameOver) {
+            // console.log("getting tetros");
+            setGameStart(true);
+            // setBoardDisplay(false);
+            setgetTetrimino(true);
+        }
+        return () => {};
+    }, [tetrominos]);
+
+    // Get Tetriminos for the second time
+    useEffect(() => {
+        if (concatTetriminos) {
+            dispatch(newTetrosRequest(UserPlayer.roomName));
+            setConcatTetriminos(false);
+        }
+    }, [concatTetriminos]);
+
+    const movePlayer = (dir) => {
+        if (!checkCollision(player, stage, { x: dir, y: 0 })) {
+            updatePlayerPos({ x: dir, y: 0 });
+        }
+    };
+
+    const keyUp = ({ keyCode }) => {
+        if (!gameOver) {
+            // Activate the interval again when user releases down arrow.
+            if (keyCode === 40) {
+                setDropTime(1000 / (level + 1) + 200);
+            }
         }
     };
 
     const drop = () => {
         // Increase level when player has cleared 10 rows
-        if (rows > (level + 1) * 10) {
-            setLevel(level + 1);
+        console.log(level, dropTime);
+        if (rows > (level + 1) * 2) {
+            console.log("level up");
+            setLevel((prev) => prev + 1);
             // Also increase speed
             setDropTime(1000 / (level + 1) + 200);
         }
@@ -302,10 +304,6 @@ const Game = () => {
     // console.log(nextPiece, nextStage);
 
     // This one starts the game
-    // Custom hook by Dan Abramov
-    useInterval(() => {
-        drop();
-    }, dropTime);
 
     const move = ({ keyCode }) => {
         if (!gameOver) {
@@ -323,8 +321,6 @@ const Game = () => {
         }
     };
 
-    // console.log("next piece", nextPiece)
-    //console.log("hado homa lplayers", players);
     return (
         <StyledContainer onKeyPress={startgame}>
             <ToastContainer />
@@ -339,6 +335,7 @@ const Game = () => {
                     keyUp={keyUp}
                     stage={stage}
                     gameOver={gameOver}
+                    gameFinished={UserPlayer.gameEnd}
                     start={boardDisplay}
                     setStart={setBoardDisplay}
                 />

@@ -6,7 +6,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./components/NavBar/NavBar";
 import Rooms from "./views/Rooms/Rooms";
-import { addPlayerRequest, addRoomRequest } from "./store/slices/playerSlice";
+import {
+    addPlayerRequest,
+    addRoomRequest,
+    joinRoomFromLink,
+} from "./store/slices/playerSlice";
 import { startConnecting } from "./store/slices/connectionSlice";
 import Game from "./views/Game/Game";
 
@@ -36,14 +40,15 @@ function App() {
                 firstIndex + 1,
                 hash.indexOf("]", firstIndex)
             );
-            if (username) {
+            if (username && room)
+                dispatch(joinRoomFromLink({ username, room }));
+            else if (username && !room) {
                 dispatch(
                     addPlayerRequest({
                         username: username,
                         avatar: "Rhett_James.png",
                     })
                 );
-                if (room) dispatch(addRoomRequest({ room, mode: "solo" }));
             }
         }
     }, [connected]);

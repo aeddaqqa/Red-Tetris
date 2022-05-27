@@ -23,6 +23,7 @@ const Tetris = ({
     start,
     setStart,
     UserPlayer,
+    gameFinished
 }) => {
     // console.log("gameOver",gameOver, "board",start);
     return (
@@ -33,6 +34,7 @@ const Tetris = ({
                     gameOver={gameOver}
                     start={start}
                     setStart={setStart}
+                    gameFinished={gameFinished}
                 />
             ) : (
                 ""

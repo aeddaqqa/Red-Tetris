@@ -82,23 +82,42 @@ const GameDetails = styled.div`
         color: ${(props) => props.theme?.message?.color};
         padding: 0.5rem;
     }
+    @media (max-width: 1300px) {
+        p {
+        width: 100%;
+        text-align: center;
+        font-size: 75%;
+        font-family: Pixel, Arial, Helvetica, sans-serif;
+        font-weight: ${(props) => props.theme?.message?.fontWeight};
+        letter-spacing: ${(props) => props.theme?.message?.letterSpacing};
+        color: ${(props) => props.theme?.message?.color};
+        padding: 0.5rem;
+        }
+    }
 `;
 
 export const StyledNext = styled.div`
+    // background-color: white;
     display: grid;
     grid-template-columns: repeat(${(props) => props.width}, 48px);
     grid-template-rows: repeat(
         ${(props) => props.height},
-        calc(14.5vh / ${(props) => props.width})
+        calc(200px / ${(props) => props.width})
     );
-    height: 185px;
+    height: 180px;
     width: 180px;
+    @media (max-width: 1300px) {
+        grid-template-columns: repeat(${(props) => props.width}, 35px);
+        grid-template-rows: repeat(
+            ${(props) => props.height},
+            calc(150px / ${(props) => props.width})
+        );
+        height: 135px;
+        width: 135px;
+    }
 `;
 
 const Info = ({ score, level, rows, nextStage }) => {
-    useEffect(() => {
-        console.log(score, level, rows, nextStage);
-    }, []);
     return (
         <StyledInfo>
             <GameDetails>

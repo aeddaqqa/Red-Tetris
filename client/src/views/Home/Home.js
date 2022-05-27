@@ -3,6 +3,7 @@ import { StyledContainer, LeftSide, RightSide } from "./Home.style";
 import { useSelector, useDispatch } from "react-redux";
 import { StyledStartButton1 } from "../../components/StartButton/StartButton.style";
 import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { Popover } from "antd";
 import { startConnecting } from "../../store/slices/connectionSlice";
 import { addPlayerRequest } from "../../store/slices/playerSlice";
@@ -50,7 +51,15 @@ const Home = () => {
 
     const { player } = useSelector((state) => state);
     useEffect(() => {
-        if (player.error) toast(player.error);
+        if (player.error) toast(player.error, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
     }, [player]);
     return (
         <StyledContainer>

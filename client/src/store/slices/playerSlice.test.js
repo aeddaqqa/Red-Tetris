@@ -4,7 +4,12 @@ import reducer, {
     addToChat,
     addWallRequest,
     concatTetros,
+    GameFinishedPlayer,
+    gameOverAction,
+    joinRoomFromLink,
     joinRoomRequest,
+    leaveRoomRequest,
+    leaveRoomSuccess,
     newTetrosRequest,
     sendMessage,
     sendStage,
@@ -141,8 +146,8 @@ describe("test connection slice", () => {
     test("start the game request", () => {
         expect(reducer({ ...playerLogged }, startTheGameRequest())).toEqual({
             ...playerLogged,
-            gameEnd: null,
-            gameOver: null,
+            gameEnd: false,
+            gameOver: false,
             adminError: null,
             tetros: [],
         });
@@ -193,6 +198,47 @@ describe("test connection slice", () => {
         ).toEqual({
             ...playerLogged,
             stages: [{ item: "fech" }],
+        });
+    });
+    test("gameOver", () => {
+        expect(reducer({ ...playerLogged }, gameOverAction())).toEqual({
+            ...playerLogged,
+            gameOver: true,
+        });
+    });
+    test("GameFinishedPlayer", () => {
+        expect(reducer({ ...playerLogged }, GameFinishedPlayer())).toEqual({
+            ...playerLogged,
+            gameEnd: true,
+            wall: false,
+            tetros: [],
+        });
+    });
+    test("leaveRoomRequest", () => {
+        expect(reducer({ ...playerLogged }, leaveRoomRequest())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("joinRoomFromLink", () => {
+        expect(reducer({ ...playerLogged }, joinRoomFromLink())).toEqual({
+            ...playerLogged,
+        });
+    });
+    test("leaveRoomSuccess", () => {
+        expect(reducer({ ...playerLogged }, leaveRoomSuccess())).toEqual({
+            ...playerLogged,
+            roomName: null,
+            error: null,
+            roomError: null,
+            loading: false,
+            chat: [],
+            stages: [],
+            admin: null,
+            adminError: null,
+            gameEnd: null,
+            gameOver: null,
+            tetros: [],
+            wall: false,
         });
     });
 });

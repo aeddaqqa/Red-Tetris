@@ -1,12 +1,22 @@
+import { useDispatch, useSelector } from "react-redux";
+import { leaveRoomRequest } from "../../store/slices/playerSlice";
 import { StyledNav } from "./NavBar.style";
-import parse from "html-react-parser";
 
 const Navbar = ({ user }) => {
+    const dispatch = useDispatch();
+    const { userName, roomName, admin } = useSelector((state) => state.player);
+    const leaveRoom = () => {
+        if (roomName) dispatch(leaveRoomRequest({ userName, roomName, admin }));
+    };
     return (
         <StyledNav>
             <ul className="list">
                 <li className="list--element">
-                    <p className="list--element--title">
+                    <p
+                        role="leave"
+                        onClick={leaveRoom}
+                        className="list--element--title"
+                    >
                         red
                         <span className="list--element--title--span">
                             tetris

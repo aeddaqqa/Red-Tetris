@@ -107,7 +107,7 @@ const Messages = ({ player }) => {
     }, [player.chat]);
 
     const generate_color = (index) => {
-        return colors[index];
+        return colors[index % 5];
     };
 
     return (

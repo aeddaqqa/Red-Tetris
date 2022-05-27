@@ -109,7 +109,7 @@ describe("Rooms", () => {
 });
 
 describe("Room Card", () => {
-    test("njarbo", () => {
+    test("room card test", () => {
         // let store;
         // store = mockStore({});
         let room = {

@@ -70,7 +70,7 @@ export const StyledOverlayText = styled.div`
     }
 `;
 
-export default function GameOver({ gameOver, start, UserPlayer }) {
+export default function GameOver({ gameOver, start, UserPlayer, gameFinished }) {
     return (
         <StyledOverlay>
             <StyledOverlayText>
@@ -80,24 +80,34 @@ export default function GameOver({ gameOver, start, UserPlayer }) {
                         style={{ width: "200px" }}
                         src={url}
                     />
-                ) : (
-                    ""
+                ) : (gameFinished ? <img
+                    data-testid="gameOver-Lost-img"
+                    style={{ width: "200px" }}
+                    src={url1}
+                /> : ""
                 )}
 
                 {gameOver ? (
                     <div>
                         <h1>{"You lost"}</h1>
                         <p>
-                            {
-                                "Press Enter to restart the game Wait for host player to restart the game"
+                            {UserPlayer.admin ? 
+                                "Press Enter to restart the game" : "Wait for host player to restart the game"
                             }
                         </p>
                     </div>
-                ) : (
-                    ""
+                ) : (gameFinished ? <div>
+                    <h1>{"Congrats! You are the Winner"}</h1>
+                    <p>
+                    {UserPlayer.admin ? 
+                                "Press Enter to restart the game" : "Wait for host player to restart the game"
+                            }
+                    </p>
+                </div> : ""
+
                 )}
                 {/* {!start ? */}
-                {start && !gameOver ? (
+                {start && (!gameOver && !gameFinished) ? (
                     <div className="overlay-content">
                         <div className="my-4 flex flex-row justify-between">
                             <kbd
