@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# 42-RedTetris
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The objective of this project is to develop a networked multiplayer tetris game from a stack of software exclusively Full Stack Javascript
 
-## Available Scripts
+There also is a classic solo mode with a leaderboard.
 
-In the project directory, you can run:
+Everything is in real time thanks to socket.io.
 
-### `npm start`
+The code is entirely unit tested with jest.
+<!-- 
+You can try it out **[here](https://tetris-orange.herokuapp.com/#)**.
+It can take some time to load the app, heroku servers must wake up. -->
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Built with
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Front-end
 
-### `npm test`
+* React.js + Redux
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Back-end
 
-### `npm run build`
+* Node.js
+* Socket.io
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Skills
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Object-oriented programming 
+* Web 
+* Functional programming 
+* Technology integration 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
+  After Cloned the repo you must install the packages with the command:
+  ```
+  npm i
 
-### `npm run eject`
+  ```
+  Then you can run the server && client with the command:
+  ```
+  npm run dev
+  ```
+  
+  The server is running on port 1337.
+  The client is running on port 3000. (http://localhost:3000/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## TEST
+To see the test coverage, run:
+```
+npm run test:coverage
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project preview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Home page
+<img src="./screens/changeAvatar.png" />
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Lobby
+<img src="./screens/empty_lobby.png" />
+<img src="./screens/full_lobby.png" />
 
-## Learn More
+### game launched
+<img width="1440" alt="other_player" src="https://user-images.githubusercontent.com/52707617/173421430-7132adba-055f-4c35-b97b-ed9daa88cf77.png">
+<img width="1440" alt="player_admin" src="https://user-images.githubusercontent.com/52707617/173422122-a4ad44cd-cc98-4709-9efc-3382a7e70e27.png">
+<img src="./screens/game_started.png" />
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### chat & score infos
+<img src="./screens/chat.png" />
+<img src="./screens/rows.png" />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Game Over screen
+<img src="./screens/wined_game.png" />
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Winner screen
+<img src="./screens/winner_view.png" />
